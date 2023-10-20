@@ -1,0 +1,60 @@
+name: test_minpro_insta_clone
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.4 <4.0.0'
+
+dependencies:
+
+  cupertino_icons: ^1.0.2
+
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: assets/fonts/Billabong.ttf
+    - family: NotoSansJP-Medium
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Medium.otf
+    - family: NotoSansJP-Regular
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Regular.otf
+    - family: NotoSansJP-Bold
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Bold.otf
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/ic_launcher.png"
+
+  adaptive_icon_background: "#212121"
+  adaptive_icon_foreground: "assets/images/ic_launcher.png"
+flutter_intl:
+  enabled: true
