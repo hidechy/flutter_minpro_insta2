@@ -1,17 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
+import 'di/providers.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+import 'viewmodel/login_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: globalProviders,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +28,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginViewModel = context.read<LoginViewModel>();
+
     return MaterialApp(
       localizationsDelegates: const [
         S.delegate,
@@ -40,7 +51,16 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(color: Colors.white),
         ),
       ),
-      home: const HomeScreen(),
+      home: FutureBuilder<bool>(
+        future: loginViewModel.isSignIn(),
+        builder: (context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasData && snapshot.data!) {
+            return const HomeScreen();
+          } else {
+            return const LoginScreen();
+          }
+        },
+      ),
     );
   }
 }
