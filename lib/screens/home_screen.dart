@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(S.of(context).appTitle),
+            const Text('HomeScreen'),
           ],
         ),
       ),

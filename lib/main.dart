@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loginViewModel = context.read<LoginViewModel>();
+    final viewModel = context.read<LoginViewModel>();
 
     return MaterialApp(
       localizationsDelegates: const [
@@ -52,12 +52,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: FutureBuilder<bool>(
-        future: loginViewModel.isSignIn(),
+        future: viewModel.isSignIn(),
         builder: (context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData && snapshot.data!) {
             return const HomeScreen();
           } else {
-            return const LoginScreen();
+            return LoginScreen();
           }
         },
       ),

@@ -10,11 +10,28 @@ List<SingleChildWidget> globalProviders = [...independentModels, ...dependentMod
 List<SingleChildWidget> independentModels = [Provider<DatabaseManager>(create: (_) => DatabaseManager())];
 
 List<SingleChildWidget> dependentModels = [
-  ProxyProvider<DatabaseManager, UserRepository>(update: (_, dbManager, repo) => UserRepository(dbManager: dbManager)),
+  ProxyProvider<DatabaseManager, UserRepository>(
+    update: (_, databaseManager, userRepository) => UserRepository(databaseManager: databaseManager),
+  ),
+
+  // ProxyProvider<DatabaseManager, PostRepository>(
+  //   update: (_, databaseManager, postRepository) {
+  //     return PostRepository();
+  //   },
+  // )
 ];
 
 List<SingleChildWidget> viewModels = [
   ChangeNotifierProvider<LoginViewModel>(
-    create: (context) => LoginViewModel(userRepository: Provider.of<UserRepository>(context, listen: false)),
+    create: (context) => LoginViewModel(userRepository: context.read<UserRepository>()),
   ),
+
+  // ChangeNotifierProvider<PostViewModel>(
+  //   create: (context) {
+  //     return PostViewModel(
+  //       postRepository: context.read<PostRepository>(),
+  //       userRepository: context.read<UserRepository>(),
+  //     );
+  //   },
+  // ),
 ];
