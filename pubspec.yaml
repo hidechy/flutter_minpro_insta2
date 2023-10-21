@@ -29,6 +29,8 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   fluttertoast: ^8.2.2
   image_picker: ^1.0.4
+  geolocator: ^10.1.0
+  geocoding: ^2.1.1
 
 dev_dependencies:
   flutter_test:

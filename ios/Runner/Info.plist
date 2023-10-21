@@ -65,5 +65,8 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your Microphone is required for this app</string>
 
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location when open.</string>
+
 </dict>
 </plist>

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../enums/constants.dart';
+import '../models/location.dart';
 import '../repository/post_repository.dart';
 import '../repository/user_repository.dart';
 
@@ -17,6 +18,9 @@ class PostViewModel extends ChangeNotifier {
 
   File? imageFile;
 
+  LocationModel? location;
+  String locationString = '';
+
   ///
   Future<void> pickImage(UploadType uploadType) async {
     isImagePicked = false;
@@ -29,7 +33,9 @@ class PostViewModel extends ChangeNotifier {
 
     debugPrint('pickImages: ${imageFile?.path}');
 
-    //TODO　位置情報
+    location = await postRepository.getCurrentLocation();
+    locationString = (location != null) ? _toLocationString(location!) : '';
+    debugPrint('location: $locationString');
 
     // ignore: unrelated_type_equality_checks
     if (imageFile != '') {
@@ -39,5 +45,12 @@ class PostViewModel extends ChangeNotifier {
     isProcessing = false;
 
     notifyListeners();
+  }
+
+  ///
+  String _toLocationString(LocationModel location) {
+    final loc = <String>[location.country, location.state, location.city];
+
+    return loc.join(' ');
   }
 }
