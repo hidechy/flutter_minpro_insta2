@@ -15,7 +15,7 @@ class PostViewModel extends ChangeNotifier {
   bool isProcessing = false;
   bool isImagePicked = false;
 
-  late File imageFile;
+  File? imageFile;
 
   ///
   Future<void> pickImage(UploadType uploadType) async {
@@ -27,7 +27,7 @@ class PostViewModel extends ChangeNotifier {
 
     imageFile = await postRepository.pickImage(uploadType);
 
-    debugPrint('pickImages: ${imageFile.path}');
+    debugPrint('pickImages: ${imageFile?.path}');
 
     //TODO　位置情報
 
