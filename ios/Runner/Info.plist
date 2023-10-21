@@ -58,5 +58,12 @@
     	</dict>
     </array>
 
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your Photo Library is required for this app</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Your Camera is required for this app</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Your Microphone is required for this app</string>
+
 </dict>
 </plist>
