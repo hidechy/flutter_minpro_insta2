@@ -33,4 +33,9 @@ class PostRepository {
     // ignore: unnecessary_await_in_return
     return await locationManager.getCurrentLocation();
   }
+
+  ///
+  Future<LocationModel> updateLocation({required double latitude, required double longitude}) async {
+    return locationManager.updateLocation(latitude: latitude, longitude: longitude);
+  }
 }

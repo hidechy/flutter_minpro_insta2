@@ -48,4 +48,11 @@ class LocationManager {
       city: placeMark.locality ?? '',
     );
   }
+
+  ///
+  Future<LocationModel> updateLocation({required double latitude, required double longitude}) async {
+    final placeMarks = await geoCoding.placemarkFromCoordinates(latitude, longitude);
+    final placeMark = placeMarks.first;
+    return Future.value(convert(placeMark, latitude, longitude));
+  }
 }

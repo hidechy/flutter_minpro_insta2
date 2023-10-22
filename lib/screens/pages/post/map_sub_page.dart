@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/location.dart';
+import '../../../viewmodel/post_viewmodel.dart';
 
 class MapSubPage extends StatefulWidget {
   const MapSubPage({super.key, required this.location});
@@ -20,7 +22,7 @@ class _MapSubPageState extends State<MapSubPage> {
 
   // GoogleMapController? _mapController;
 
-  Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
+  final Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
 
   ///
   @override
@@ -38,10 +40,10 @@ class _MapSubPageState extends State<MapSubPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).selectPlace),
-        actions: const <Widget>[
+        actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.done),
-            onPressed: null,
+            icon: const Icon(Icons.done),
+            onPressed: _onPlaceSelected,
           ),
         ],
       ),
@@ -61,7 +63,7 @@ class _MapSubPageState extends State<MapSubPage> {
 
   ///
   void onMapTapped(LatLng latLng) {
-    debugPrint('selected place: ${latLng}');
+    debugPrint('selected place: $latLng');
 
     _latLng = latLng;
     _createMarker();
@@ -69,11 +71,21 @@ class _MapSubPageState extends State<MapSubPage> {
 
   ///
   void _createMarker() {
-    final markerId = MarkerId('selected');
+    const markerId = MarkerId('selected');
     final marker = Marker(markerId: markerId, position: _latLng);
 
     setState(() {
       _markers[markerId] = marker;
     });
+  }
+
+  ///
+  Future<void> _onPlaceSelected() async {
+    final postViewModel = context.read<PostViewModel>();
+
+    await postViewModel.updateLocation(latitude: _latLng.latitude, longitude: _latLng.longitude);
+
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 }
