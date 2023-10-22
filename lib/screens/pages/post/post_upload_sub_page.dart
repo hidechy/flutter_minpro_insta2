@@ -62,7 +62,7 @@ class PostUploadSubPage extends StatelessWidget {
                               postCaptionOpenMode: PostCaptionOpenMode.fromPost,
                             ),
                             const Divider(),
-                            const PostLocationPart(),
+                            PostLocationPart(),
                             const Divider(),
                           ],
                         ),
