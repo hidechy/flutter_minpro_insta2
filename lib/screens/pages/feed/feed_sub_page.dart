@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../enums/constants.dart';
 import '../../../viewmodel/feed_viewmodel.dart';
+import '../../components/feed_post_tile.dart';
 
 class FeedSubPage extends StatelessWidget {
   const FeedSubPage({super.key, required this.feedMode});
@@ -14,21 +15,22 @@ class FeedSubPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final feedViewModel = context.read<FeedViewModel>();
 
-    /// 名前付き引数にできない
-    /// できるならしたい
     // ignore: cascade_invocations
-    feedViewModel.setFeedUser(feedMode);
+    feedViewModel.setFeedUser(feedMode: feedMode);
 
     Future(() => feedViewModel.getPost(feedMode: feedMode));
 
-    return const Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text('FeedSubPage'),
-          ],
-        ),
-      ),
-    );
+    return Consumer<FeedViewModel>(builder: (context, model, child) {
+      if (model.isProcessing == true) {
+        return const Center(child: CircularProgressIndicator());
+      } else {
+        return ListView.builder(
+          itemCount: model.posts.length,
+          itemBuilder: (context, index) {
+            return FeedPostTile(feedMode: feedMode, post: model.posts[index]);
+          },
+        );
+      }
+    });
   }
 }

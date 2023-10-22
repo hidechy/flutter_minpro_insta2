@@ -34,7 +34,7 @@ class FeedViewModel extends ChangeNotifier {
   }
 
   ///
-  void setFeedUser(FeedMode feedMode) {
+  void setFeedUser({required FeedMode feedMode}) {
     switch (feedMode) {
       case FeedMode.fromFeed:
         feedUser = currentUser;
@@ -43,5 +43,10 @@ class FeedViewModel extends ChangeNotifier {
         feedUser = null; //引数
         break;
     }
+  }
+
+  ///
+  Future<UserModel> getPostUserInfo({required String userId}) async {
+    return userRepository.getUserById(userId: userId);
   }
 }

@@ -82,4 +82,9 @@ class UserRepository {
       bio: '',
     );
   }
+
+  ///
+  Future<UserModel> getUserById({required String userId}) async {
+    return databaseManager.getUserInfoFromDbById(userId);
+  }
 }
