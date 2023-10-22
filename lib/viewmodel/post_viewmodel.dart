@@ -64,4 +64,7 @@ class PostViewModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  ///
+  Future<void> post() async {}
 }

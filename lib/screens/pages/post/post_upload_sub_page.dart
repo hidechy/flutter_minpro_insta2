@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../enums/constants.dart';
 import '../../../generated/l10n.dart';
 import '../../../viewmodel/post_viewmodel.dart';
+import '../../components/confirm_dialog.dart';
 import '../../components/post_caption_part.dart';
 import '../../components/post_location_part.dart';
 
@@ -44,7 +45,18 @@ class PostUploadSubPage extends StatelessWidget {
                       icon: const Icon(Icons.close),
                     )
                   : IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showConfirmDialog(
+                          context: context,
+                          title: S.of(context).post,
+                          content: S.of(context).postConfirm,
+                          onConfirmed: (isConfirmed) {
+                            if (isConfirmed) {
+                              _post();
+                            }
+                          },
+                        );
+                      },
                       icon: const Icon(Icons.done),
                     ),
             ],
@@ -76,6 +88,17 @@ class PostUploadSubPage extends StatelessWidget {
 
   ///
   void _cancelPost() {
+    Navigator.pop(_context);
+  }
+
+  ///
+  Future<void> _post() async {
+    debugPrint('_post invoked');
+
+    final postViewModel = _context.read<PostViewModel>();
+    await postViewModel.post();
+
+    // ignore: use_build_context_synchronously
     Navigator.pop(_context);
   }
 }
