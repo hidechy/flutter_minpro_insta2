@@ -1,5 +1,3 @@
-import '../extensions/extensions.dart';
-
 class PostModel {
 //<editor-fold desc="Data Methods">
   PostModel({

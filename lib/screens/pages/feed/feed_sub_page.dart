@@ -16,6 +16,7 @@ class FeedSubPage extends StatelessWidget {
 
     /// 名前付き引数にできない
     /// できるならしたい
+    // ignore: cascade_invocations
     feedViewModel.setFeedUser(feedMode);
 
     Future(() => feedViewModel.getPost(feedMode: feedMode));

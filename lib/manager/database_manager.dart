@@ -55,17 +55,17 @@ class DatabaseManager {
     //============== 投稿があるのかチェック
     final query = await FirebaseFirestore.instance.collection('insta').get();
 
-    if (query.docs.length == 0) {
+    if (query.docs.isEmpty) {
       return [];
     }
     //============== 投稿があるのかチェック
 
     //============== 取得する投稿の記述者を特定
-    var userIds = await getFollowingUserIds(userId: userId);
+    final userIds = await getFollowingUserIds(userId: userId);
     userIds.add(userId);
     //============== 取得する投稿の記述者を特定
 
-    var results = <PostModel>[];
+    final results = <PostModel>[];
 
     await FirebaseFirestore.instance
         .collection('insta')
@@ -80,7 +80,7 @@ class DatabaseManager {
       },
     );
 
-    debugPrint('posts: ${results}');
+    debugPrint('posts: $results');
 
     return results;
   }
@@ -94,11 +94,11 @@ class DatabaseManager {
   Future<List<String>> getFollowingUserIds({required String userId}) async {
     final query = await FirebaseFirestore.instance.collection('users').doc(userId).collection('followings').get();
 
-    if (query.docs.length == 0) {
+    if (query.docs.isEmpty) {
       return [];
     }
 
-    var userIds = <String>[];
+    final userIds = <String>[];
     query.docs.forEach((element) {
       userIds.add(element.data()['userId']);
     });

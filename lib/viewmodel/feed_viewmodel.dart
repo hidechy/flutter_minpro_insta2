@@ -7,10 +7,10 @@ import '../repository/post_repository.dart';
 import '../repository/user_repository.dart';
 
 class FeedViewModel extends ChangeNotifier {
+  FeedViewModel({required this.userRepository, required this.postRepository});
+
   final UserRepository userRepository;
   final PostRepository postRepository;
-
-  FeedViewModel({required this.userRepository, required this.postRepository});
 
   bool isProcessing = false;
 
