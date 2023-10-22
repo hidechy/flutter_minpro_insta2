@@ -33,7 +33,7 @@ class PostCaptionPart extends StatelessWidget {
             image: image,
             onTap: () => _displayLargeImage(image: image),
           ),
-          title: PostCaptionInputTextField(),
+          title: const PostCaptionInputTextField(),
         );
       case PostCaptionOpenMode.fromFeed:
         return Container();
