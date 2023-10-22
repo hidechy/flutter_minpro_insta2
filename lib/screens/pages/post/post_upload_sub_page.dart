@@ -88,13 +88,12 @@ class PostUploadSubPage extends StatelessWidget {
 
   ///
   void _cancelPost() {
+    _context.read<PostViewModel>().cancelPost();
     Navigator.pop(_context);
   }
 
   ///
   Future<void> _post() async {
-    debugPrint('_post invoked');
-
     final postViewModel = _context.read<PostViewModel>();
     await postViewModel.post();
 

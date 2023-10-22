@@ -87,4 +87,11 @@ class PostViewModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  ///
+  void cancelPost() {
+    isProcessing = false;
+    isImagePicked = false;
+    notifyListeners();
+  }
 }
