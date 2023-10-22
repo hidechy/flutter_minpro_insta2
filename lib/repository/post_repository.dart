@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test_minpro_insta_clone/models/post.dart';
 import 'package:test_minpro_insta_clone/models/user.dart';
 import 'package:uuid/uuid.dart';
 
@@ -51,6 +52,20 @@ class PostRepository {
       required String locationString}) async {
     final storageId = const Uuid().v1();
     final imageUrl = await dbManager.uploadImageToStorage(imageFile: imageFile, storageId: storageId);
-    debugPrint('storageImageUrl : $imageUrl');
+    //debugPrint('storageImageUrl : $imageUrl');
+
+    final post = PostModel(
+      postId: const Uuid().v1(),
+      userId: user.userId,
+      imageUrl: imageUrl,
+      imageStoragePath: storageId,
+      caption: caption,
+      locationString: locationString,
+      latitude: (location != null) ? location.latitude : 0,
+      longitude: (location != null) ? location.longitude : 0,
+      postDateTime: DateTime.now(),
+    );
+
+    await dbManager.insertPost(post);
   }
 }
