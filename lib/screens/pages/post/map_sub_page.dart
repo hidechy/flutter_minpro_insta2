@@ -18,6 +18,10 @@ class _MapSubPageState extends State<MapSubPage> {
   late LatLng _latLng;
   late CameraPosition _cameraPosition;
 
+  // GoogleMapController? _mapController;
+
+  Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
+
   ///
   @override
   void initState() {
@@ -43,11 +47,33 @@ class _MapSubPageState extends State<MapSubPage> {
       ),
       body: GoogleMap(
         initialCameraPosition: _cameraPosition,
-        onMapCreated: onMapCreated,
+//        onMapCreated: onMapCreated,
+        onTap: onMapTapped,
+        markers: Set<Marker>.of(_markers.values),
       ),
     );
   }
 
+  // ///
+  // void onMapCreated(GoogleMapController controller) {
+  //   //    _mapController = controller;
+  // }
+
   ///
-  void onMapCreated(GoogleMapController controller) {}
+  void onMapTapped(LatLng latLng) {
+    debugPrint('selected place: ${latLng}');
+
+    _latLng = latLng;
+    _createMarker();
+  }
+
+  ///
+  void _createMarker() {
+    final markerId = MarkerId('selected');
+    final marker = Marker(markerId: markerId, position: _latLng);
+
+    setState(() {
+      _markers[markerId] = marker;
+    });
+  }
 }
