@@ -22,7 +22,9 @@ class PostModel {
       locationString: map['locationString'] as String,
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
-      postDateTime: (map['postDateTime'] == null) ? DateTime.now() : DateTime.parse(map['postDateTime'] as String),
+      postDateTime: (map['postDateTime'] == null)
+          ? DateTime.now().toLocal()
+          : DateTime.parse(map['postDateTime'] as String).toLocal(),
     );
   }
 
@@ -102,7 +104,7 @@ class PostModel {
       'locationString': locationString,
       'latitude': latitude,
       'longitude': longitude,
-      'postDateTime': postDateTime.toIso8601String(),
+      'postDateTime': postDateTime.toUtc().toIso8601String(),
     };
   }
 
