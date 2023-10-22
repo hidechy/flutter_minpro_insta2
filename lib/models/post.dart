@@ -24,7 +24,7 @@ class PostModel {
       locationString: map['locationString'] as String,
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
-      postDateTime: (map['postDateTime'] == null) ? DateTime.now() : (map['postDateTime'] as String).toDateTime(),
+      postDateTime: (map['postDateTime'] == null) ? DateTime.now() : DateTime.parse(map['postDateTime'] as String),
     );
   }
 

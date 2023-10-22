@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ///
   @override
   void initState() {
-    _pages = [const FeedPage(), const SearchPage(), const PostPage(), const ActivityPage(), const ProfilePage()];
+    _pages = [FeedPage(), const SearchPage(), const PostPage(), const ActivityPage(), const ProfilePage()];
 
     super.initState();
   }

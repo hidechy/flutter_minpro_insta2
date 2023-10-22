@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:test_minpro_insta_clone/models/post.dart';
-import 'package:test_minpro_insta_clone/models/user.dart';
 import 'package:uuid/uuid.dart';
 
 import '../enums/constants.dart';
 import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
 import '../models/location.dart';
+import '../models/post.dart';
+import '../models/user.dart';
 
 class PostRepository {
   PostRepository({required this.dbManager, required this.locationManager});
@@ -66,5 +66,16 @@ class PostRepository {
     );
 
     await dbManager.insertPost(post);
+  }
+
+  ///
+  Future<List<PostModel>> getPosts({required FeedMode feedMode, UserModel? user}) {
+    switch (feedMode) {
+      case FeedMode.fromFeed:
+        return dbManager.getPostMineAndFollowings(userId: user!.userId);
+
+      case FeedMode.fromProfile:
+        return dbManager.getPostByUser(userId: user!.userId);
+    }
   }
 }

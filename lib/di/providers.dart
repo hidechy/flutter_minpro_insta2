@@ -5,6 +5,7 @@ import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
 import '../repository/post_repository.dart';
 import '../repository/user_repository.dart';
+import '../viewmodel/feed_viewmodel.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/post_viewmodel.dart';
 
@@ -36,5 +37,11 @@ List<SingleChildWidget> viewModels = [
         userRepository: context.read<UserRepository>(),
       );
     },
+  ),
+  ChangeNotifierProvider<FeedViewModel>(
+    create: (context) => FeedViewModel(
+      postRepository: context.read<PostRepository>(),
+      userRepository: context.read<UserRepository>(),
+    ),
   ),
 ];
