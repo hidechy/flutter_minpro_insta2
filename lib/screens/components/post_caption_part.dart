@@ -22,14 +22,18 @@ class PostCaptionPart extends StatelessWidget {
 
     final postViewModel = context.read<PostViewModel>();
 
+    final image = (postViewModel.imageFile != null)
+        ? Image.file(postViewModel.imageFile!)
+        : Image.asset('assets/images/no_image.png');
+
     switch (postCaptionOpenMode) {
       case PostCaptionOpenMode.fromPost:
         return ListTile(
           leading: HeroImage(
-            image: Image.file(postViewModel.imageFile!),
-            onTap: () => _displayLargeImage(image: Image.file(postViewModel.imageFile!)),
+            image: image,
+            onTap: () => _displayLargeImage(image: image),
           ),
-          title: const PostCaptionInputTextField(),
+          title: PostCaptionInputTextField(),
         );
       case PostCaptionOpenMode.fromFeed:
         return Container();
