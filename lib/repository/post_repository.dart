@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test_minpro_insta_clone/models/post.dart';
 import 'package:test_minpro_insta_clone/models/user.dart';
