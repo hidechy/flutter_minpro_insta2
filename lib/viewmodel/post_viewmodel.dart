@@ -66,5 +66,25 @@ class PostViewModel extends ChangeNotifier {
   }
 
   ///
-  Future<void> post() async {}
+  Future<void> post() async {
+    if (imageFile == null) {
+      return;
+    }
+
+    isProcessing = true;
+    notifyListeners();
+
+    await postRepository.post(
+      user: UserRepository.currentUser!,
+      imageFile: imageFile!,
+      caption: caption,
+      location: location,
+      locationString: locationString,
+    );
+
+    isProcessing = false;
+    isImagePicked = false;
+
+    notifyListeners();
+  }
 }
