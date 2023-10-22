@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../models/location.dart';
 import '../../viewmodel/post_viewmodel.dart';
+import '../pages/post/map_sub_page.dart';
 
 // ignore: must_be_immutable
 class PostLocationPart extends StatelessWidget {
@@ -22,6 +23,12 @@ class PostLocationPart extends StatelessWidget {
     return ListTile(
       title: Text(postViewModel.locationString),
       subtitle: _latLngPart(postViewModel.location),
+      trailing: (postViewModel.location != null)
+          ? IconButton(
+              icon: const Icon(Icons.location_on),
+              onPressed: () => _openMapScreen(postViewModel.location!),
+            )
+          : Container(),
     );
   }
 
@@ -40,6 +47,14 @@ class PostLocationPart extends StatelessWidget {
         const SizedBox(width: spaceWidth),
         Text((location != null) ? location.longitude.toStringAsFixed(2) : '0.00'),
       ],
+    );
+  }
+
+  ///
+  void _openMapScreen(LocationModel location) {
+    Navigator.push(
+      _context,
+      MaterialPageRoute(builder: (_) => MapSubPage(location: location)),
     );
   }
 }
