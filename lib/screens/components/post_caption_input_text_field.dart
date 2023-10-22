@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../viewmodel/post_viewmodel.dart';
 
 class PostCaptionInputTextField extends StatefulWidget {
@@ -34,6 +35,13 @@ class _PostCaptionInputTextFieldState extends State<PostCaptionInputTextField> {
 
     return TextField(
       controller: _captionController,
+      autofocus: true,
+      keyboardType: TextInputType.multiline,
+      maxLines: null,
+      decoration: InputDecoration(
+        hintText: S.of(context).inputCaption,
+        border: InputBorder.none,
+      ),
     );
   }
 
