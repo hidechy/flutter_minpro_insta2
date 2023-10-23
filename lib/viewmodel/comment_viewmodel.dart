@@ -34,9 +34,14 @@ class CommentViewModel extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    await postRepository.getComments(postId: postId);
+    comments = await postRepository.getComments(postId: postId);
 
     isLoading = false;
     notifyListeners();
+  }
+
+  ///
+  Future<UserModel> getCommentUserInfo({required String userId}) async {
+    return userRepository.getUserById(userId: userId);
   }
 }
