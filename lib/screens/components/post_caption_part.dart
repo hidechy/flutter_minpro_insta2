@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../enums/constants.dart';
+import '../../models/post.dart';
 import '../../viewmodel/post_viewmodel.dart';
 import '../pages/post/enlarge_image_sub_page.dart';
 import 'hero_image.dart';
+import 'image_from_url.dart';
 import 'post_caption_input_text_field.dart';
 
 // ignore: must_be_immutable
 class PostCaptionPart extends StatelessWidget {
-  PostCaptionPart({super.key, required this.postCaptionOpenMode});
+  PostCaptionPart({super.key, required this.postCaptionOpenMode, this.post});
 
   final PostCaptionOpenMode postCaptionOpenMode;
+  final PostModel? post;
 
   late BuildContext _context;
 
@@ -20,14 +23,14 @@ class PostCaptionPart extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
 
-    final postViewModel = context.read<PostViewModel>();
-
-    final image = (postViewModel.imageFile != null)
-        ? Image.file(postViewModel.imageFile!)
-        : Image.asset('assets/images/no_image.png');
-
     switch (postCaptionOpenMode) {
       case PostCaptionOpenMode.fromPost:
+        final postViewModel = context.read<PostViewModel>();
+
+        final image = (postViewModel.imageFile != null)
+            ? Image.file(postViewModel.imageFile!)
+            : Image.asset('assets/images/no_image.png');
+
         return ListTile(
           leading: HeroImage(
             image: image,
@@ -36,7 +39,18 @@ class PostCaptionPart extends StatelessWidget {
           title: const PostCaptionInputTextField(),
         );
       case PostCaptionOpenMode.fromFeed:
-        return Container();
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              ImageFromUrl(imageUrl: post?.imageUrl),
+              PostCaptionInputTextField(
+                captionBeforeUpdated: post?.caption,
+                postCaptionOpenMode: postCaptionOpenMode,
+              ),
+            ],
+          ),
+        );
     }
   }
 

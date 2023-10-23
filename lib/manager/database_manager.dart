@@ -105,4 +105,9 @@ class DatabaseManager {
 
     return userIds;
   }
+
+  ///
+  Future<void> updatePost({required PostModel updatePost}) async {
+    await FirebaseFirestore.instance.collection('insta').doc(updatePost.postId).update(updatePost.toMap());
+  }
 }

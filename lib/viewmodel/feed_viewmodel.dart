@@ -20,6 +20,8 @@ class FeedViewModel extends ChangeNotifier {
 
   UserModel get currentUser => UserRepository.currentUser!;
 
+  String caption = '';
+
   ///
   Future<void> getPost({required FeedMode feedMode}) async {
     isProcessing = true;
@@ -48,5 +50,20 @@ class FeedViewModel extends ChangeNotifier {
   ///
   Future<UserModel> getPostUserInfo({required String userId}) async {
     return userRepository.getUserById(userId: userId);
+  }
+
+  ///
+  Future<void> updatePost({required PostModel post, required FeedMode feedMode}) async {
+    isProcessing = true;
+
+    notifyListeners();
+
+    await postRepository.updatePost(post.copyWith(caption: caption));
+
+    await getPost(feedMode: feedMode);
+
+    isProcessing = false;
+
+    notifyListeners();
   }
 }
