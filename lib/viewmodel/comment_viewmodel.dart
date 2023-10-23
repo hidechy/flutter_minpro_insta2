@@ -44,4 +44,13 @@ class CommentViewModel extends ChangeNotifier {
   Future<UserModel> getCommentUserInfo({required String userId}) async {
     return userRepository.getUserById(userId: userId);
   }
+
+  ///
+  Future<void> deleteComment({required String commentId, required PostModel post}) async {
+    await postRepository.deleteComment(commentId: commentId);
+
+    await getComments(postId: post.postId);
+
+    notifyListeners();
+  }
 }

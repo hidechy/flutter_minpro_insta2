@@ -4,21 +4,25 @@ import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/post.dart';
 import '../../../models/user.dart';
-import '../../../util/functions.dart';
 import '../../../viewmodel/comment_viewmodel.dart';
-import '../../components/circle_photo.dart';
 import '../../components/comment_display_part.dart';
 import '../../components/comment_input_part.dart';
+import '../../components/confirm_dialog.dart';
 
+// ignore: must_be_immutable
 class FeedCommentSubPage extends StatelessWidget {
-  const FeedCommentSubPage({super.key, required this.post, required this.postUser});
+  FeedCommentSubPage({super.key, required this.post, required this.postUser});
 
   final PostModel post;
   final UserModel postUser;
 
+  late BuildContext _context;
+
   ///
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     final commentViewModel = context.read<CommentViewModel>();
 
     Future(() => commentViewModel.getComments(postId: post.postId));
@@ -38,6 +42,7 @@ class FeedCommentSubPage extends StatelessWidget {
                 text: post.caption,
                 postDateTime: post.postDateTime,
               ),
+              Divider(color: Colors.white.withOpacity(0.5), thickness: 5),
               Consumer<CommentViewModel>(builder: (context, model, child) {
                 return Expanded(
                   child: ListView.builder(
@@ -51,16 +56,35 @@ class FeedCommentSubPage extends StatelessWidget {
                         future: model.getCommentUserInfo(userId: commentUserId),
                         builder: (context, AsyncSnapshot<UserModel> snapshot) {
                           if (snapshot.hasData && snapshot.data != null) {
-                            return ListTile(
-                              leading: CirclePhoto(photoUrl: snapshot.data!.photoUrl, isImageFromFile: false),
-                              title: Text(snapshot.data!.inAppUserName),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(comment.comment),
-                                  Text(createTimeAgoString(comment.commentDateTime)),
-                                ],
-                              ),
+                            // return ListTile(
+                            //   leading: CirclePhoto(photoUrl: snapshot.data!.photoUrl, isImageFromFile: false),
+                            //   title: Text(snapshot.data!.inAppUserName),
+                            //   subtitle: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text(comment.comment),
+                            //       Text(createTimeAgoString(comment.commentDateTime)),
+                            //     ],
+                            //   ),
+                            // );
+
+                            return CommentDisplayPart(
+                              postUserPhotoUrl: snapshot.data!.photoUrl,
+                              name: snapshot.data!.inAppUserName,
+                              text: comment.comment,
+                              postDateTime: comment.commentDateTime,
+                              onLongPressed: () {
+                                showConfirmDialog(
+                                  context: context,
+                                  title: S.of(context).deleteComment,
+                                  content: S.of(context).deleteCommentConfirm,
+                                  onConfirmed: (isConfirmed) {
+                                    if (isConfirmed) {
+                                      _deleteComment(commentId: comment.commentId);
+                                    }
+                                  },
+                                );
+                              },
                             );
                           }
 
@@ -77,5 +101,11 @@ class FeedCommentSubPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ///
+  Future<void> _deleteComment({required String commentId}) async {
+    final commentViewModel = _context.read<CommentViewModel>();
+    await commentViewModel.deleteComment(post: post, commentId: commentId);
   }
 }

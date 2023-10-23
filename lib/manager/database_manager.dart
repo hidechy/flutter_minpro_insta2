@@ -146,4 +146,9 @@ class DatabaseManager {
 
     return results;
   }
+
+  ///
+  Future<void> deleteComment({required String commentId}) async {
+    await FirebaseFirestore.instance.collection('insta_comments').doc(commentId).delete();
+  }
 }

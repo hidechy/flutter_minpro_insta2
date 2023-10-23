@@ -22,21 +22,28 @@ class CommentDisplayPart extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CirclePhoto(photoUrl: postUserPhotoUrl, isImageFromFile: false),
-        const SizedBox(width: 20),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommentRichText(name: name, text: text),
-              Text(createTimeAgoString(postDateTime)),
-            ],
-          ),
+    return InkWell(
+      splashColor: Colors.blueGrey,
+      onLongPress: onLongPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CirclePhoto(photoUrl: postUserPhotoUrl, isImageFromFile: false),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CommentRichText(name: name, text: text),
+                  Text(createTimeAgoString(postDateTime)),
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
