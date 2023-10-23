@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:test_minpro_insta_clone/models/like.dart';
 import 'package:uuid/uuid.dart';
 
 import '../enums/constants.dart';
@@ -107,5 +108,17 @@ class PostRepository {
   ///
   Future<void> deleteComment({required String commentId}) async {
     await dbManager.deleteComment(commentId: commentId);
+  }
+
+  ///
+  Future<void> likeIt({required PostModel post, required UserModel currentUser}) async {
+    final like = LikeModel(
+      likeUserId: currentUser.userId,
+      likeId: const Uuid().v1(),
+      postId: post.postId,
+      likeDateTime: DateTime.now(),
+    );
+
+    await dbManager.likeIt(likeModel: like);
   }
 }

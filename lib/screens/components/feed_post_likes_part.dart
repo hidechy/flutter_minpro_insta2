@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../models/post.dart';
 import '../../models/user.dart';
+import '../../viewmodel/feed_viewmodel.dart';
 import '../pages/feed/feed_comment_sub_page.dart';
 
 // ignore: must_be_immutable
@@ -27,8 +29,8 @@ class FeedPostLikesPart extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite),
+                icon: const Icon(Icons.favorite_border),
+                onPressed: _likeIt,
               ),
               IconButton(
                 onPressed: _openCommentSubPage,
@@ -48,5 +50,11 @@ class FeedPostLikesPart extends StatelessWidget {
       _context,
       MaterialPageRoute(builder: (context) => FeedCommentSubPage(postUser: postUser, post: post)),
     );
+  }
+
+  ///
+  Future<void> _likeIt() async {
+    final feedViewModel = _context.read<FeedViewModel>();
+    await feedViewModel.likeIt(post);
   }
 }
