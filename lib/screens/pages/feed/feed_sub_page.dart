@@ -27,7 +27,7 @@ class FeedSubPage extends StatelessWidget {
         return RefreshIndicator(
           onRefresh: () => feedViewModel.getPost(feedMode: feedMode),
           child: ListView.builder(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             itemCount: model.posts.length,
             itemBuilder: (context, index) {
               return FeedPostTile(feedMode: feedMode, post: model.posts[index]);
