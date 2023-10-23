@@ -3,8 +3,10 @@ import 'package:provider/single_child_widget.dart';
 
 import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
+import '../repository/comment_repository.dart';
 import '../repository/post_repository.dart';
 import '../repository/user_repository.dart';
+import '../viewmodel/comment_viewmodel.dart';
 import '../viewmodel/feed_viewmodel.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/post_viewmodel.dart';
@@ -42,6 +44,13 @@ List<SingleChildWidget> viewModels = [
     create: (context) => FeedViewModel(
       postRepository: context.read<PostRepository>(),
       userRepository: context.read<UserRepository>(),
+    ),
+  ),
+  ChangeNotifierProvider<CommentViewModel>(
+    create: (context) => CommentViewModel(
+      postRepository: context.read<PostRepository>(),
+      userRepository: context.read<UserRepository>(),
+      commentRepository: context.read<CommentRepository>(),
     ),
   ),
 ];
