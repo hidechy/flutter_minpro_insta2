@@ -6,9 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:test_minpro_insta_clone/models/comment.dart';
-import 'package:test_minpro_insta_clone/models/like.dart';
 
+import '../models/comment.dart';
+import '../models/like.dart';
 import '../models/post.dart';
 import '../models/user.dart';
 
@@ -156,5 +156,49 @@ class DatabaseManager {
   ///
   Future<void> likeIt({required LikeModel likeModel}) async {
     await FirebaseFirestore.instance.collection('insta_likes').doc(likeModel.likeId).set(likeModel.toMap());
+  }
+
+  ///
+  Future<List<LikeModel>> getLikes({required String postId}) async {
+    //============== ライクがあるのかチェック
+    final query = await FirebaseFirestore.instance.collection('insta_likes').get();
+
+    if (query.docs.isEmpty) {
+      return [];
+    }
+    //============== ライクがあるのかチェック
+
+    final results = <LikeModel>[];
+
+    await FirebaseFirestore.instance
+        .collection('insta_likes')
+        .where('postId', isEqualTo: postId)
+        .orderBy('likeDateTime', descending: true)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach(
+          (element) => results.add(LikeModel.fromMap(element.data())),
+        );
+      },
+    );
+
+    debugPrint('likes: $results');
+
+    return results;
+  }
+
+  ///
+  Future<void> unlikeIt({required String userId, required PostModel post}) async {
+    await FirebaseFirestore.instance
+        .collection('insta_likes')
+        .where('postId', isEqualTo: post.postId)
+        .where('likeUserId', isEqualTo: userId)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) async {
+        await FirebaseFirestore.instance.collection('insta_likes').doc(element.id).delete();
+      });
+    });
   }
 }

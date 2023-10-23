@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
+import '../../models/like.dart';
 import '../../models/post.dart';
 import '../../models/user.dart';
 import '../../viewmodel/feed_viewmodel.dart';
@@ -21,25 +22,35 @@ class FeedPostLikesPart extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
 
+    final feedViewModel = context.read<FeedViewModel>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.favorite_border),
-                onPressed: _likeIt,
-              ),
-              IconButton(
-                onPressed: _openCommentSubPage,
-                icon: const Icon(Icons.comment),
-              ),
-            ],
-          ),
-          Text('0 ${S.of(context).likes}'),
-        ],
+      child: FutureBuilder(
+        future: feedViewModel.getLikeResult(postId: post.postId),
+        builder: (context, AsyncSnapshot<LikeResult> snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    (snapshot.data!.isLikeToThisPost)
+                        ? IconButton(
+                            icon: const Icon(Icons.favorite, color: Colors.yellowAccent),
+                            onPressed: () => _unlikeIt(userId: postUser.userId),
+                          )
+                        : IconButton(icon: const Icon(Icons.favorite_border), onPressed: _likeIt),
+                    IconButton(onPressed: _openCommentSubPage, icon: const Icon(Icons.comment)),
+                  ],
+                ),
+                Text('${snapshot.data!.likes.length} ${S.of(context).likes}'),
+              ],
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
@@ -55,6 +66,12 @@ class FeedPostLikesPart extends StatelessWidget {
   ///
   Future<void> _likeIt() async {
     final feedViewModel = _context.read<FeedViewModel>();
-    await feedViewModel.likeIt(post);
+    await feedViewModel.likeIt(post: post);
+  }
+
+  ///
+  Future<void> _unlikeIt({required String userId}) async {
+    final feedViewModel = _context.read<FeedViewModel>();
+    await feedViewModel.unlikeIt(userId: userId, post: post);
   }
 }

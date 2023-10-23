@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:test_minpro_insta_clone/models/like.dart';
 import 'package:uuid/uuid.dart';
 
 import '../enums/constants.dart';
 import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
 import '../models/comment.dart';
+import '../models/like.dart';
 import '../models/location.dart';
 import '../models/post.dart';
 import '../models/user.dart';
@@ -120,5 +120,19 @@ class PostRepository {
     );
 
     await dbManager.likeIt(likeModel: like);
+  }
+
+  ///
+  Future<LikeResult> getLikeResult({required String postId, required UserModel currentUser}) async {
+    final likes = await dbManager.getLikes(postId: postId);
+
+    final myLikes = likes.where((element) => element.likeUserId == currentUser.userId);
+
+    return LikeResult(likes: likes, isLikeToThisPost: myLikes.isNotEmpty);
+  }
+
+  ///
+  Future<void> unlikeIt({required String userId, required PostModel post}) async {
+    await dbManager.unlikeIt(userId: userId, post: post);
   }
 }

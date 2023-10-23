@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../enums/constants.dart';
 import '../models/comment.dart';
+import '../models/like.dart';
 import '../models/post.dart';
 import '../models/user.dart';
 import '../repository/post_repository.dart';
@@ -74,8 +75,19 @@ class FeedViewModel extends ChangeNotifier {
   }
 
   ///
-  Future<void> likeIt(PostModel post) async {
+  Future<void> likeIt({required PostModel post}) async {
     await postRepository.likeIt(post: post, currentUser: currentUser);
+    notifyListeners();
+  }
+
+  ///
+  Future<LikeResult> getLikeResult({required String postId}) async {
+    return postRepository.getLikeResult(postId: postId, currentUser: currentUser);
+  }
+
+  ///
+  Future<void> unlikeIt({required String userId, required PostModel post}) async {
+    await postRepository.unlikeIt(userId: userId, post: post);
     notifyListeners();
   }
 }
