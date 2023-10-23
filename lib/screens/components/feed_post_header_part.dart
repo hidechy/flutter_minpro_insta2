@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../enums/constants.dart';
 import '../../generated/l10n.dart';
@@ -68,6 +69,7 @@ class FeedPostHeaderPart extends StatelessWidget {
       case PostMenu.delete:
         break;
       case PostMenu.share:
+        Share.share(post.imageUrl, subject: post.caption);
         break;
     }
   }
