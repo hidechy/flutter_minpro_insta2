@@ -4,6 +4,7 @@ import '../../../generated/l10n.dart';
 import '../../../models/post.dart';
 import '../../../models/user.dart';
 import '../../components/comment_display_part.dart';
+import '../../components/comment_input_part.dart';
 
 class FeedCommentSubPage extends StatelessWidget {
   const FeedCommentSubPage({super.key, required this.post, required this.postUser});
@@ -29,6 +30,7 @@ class FeedCommentSubPage extends StatelessWidget {
                 text: post.caption,
                 postDateTime: post.postDateTime,
               ),
+              CommentInputPart(post: post),
             ],
           ),
         ),

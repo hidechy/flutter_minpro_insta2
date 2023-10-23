@@ -3,7 +3,6 @@ import 'package:provider/single_child_widget.dart';
 
 import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
-import '../repository/comment_repository.dart';
 import '../repository/post_repository.dart';
 import '../repository/user_repository.dart';
 import '../viewmodel/comment_viewmodel.dart';
@@ -50,7 +49,6 @@ List<SingleChildWidget> viewModels = [
     create: (context) => CommentViewModel(
       postRepository: context.read<PostRepository>(),
       userRepository: context.read<UserRepository>(),
-      commentRepository: context.read<CommentRepository>(),
     ),
   ),
 ];

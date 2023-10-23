@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:test_minpro_insta_clone/models/comment.dart';
 import 'package:uuid/uuid.dart';
 
 import '../enums/constants.dart';
@@ -82,5 +83,19 @@ class PostRepository {
   ///
   Future<void> updatePost(PostModel updatePost) async {
     return dbManager.updatePost(updatePost: updatePost);
+  }
+
+  ///
+  Future<void> postComment(
+      {required PostModel post, required UserModel postUser, required String commentString}) async {
+    final comment = CommentModel(
+      commentId: const Uuid().v1(),
+      postId: post.postId,
+      commentUserId: postUser.userId,
+      comment: commentString,
+      commentDateTime: DateTime.now(),
+    );
+
+    await dbManager.postComment(commentModel: comment);
   }
 }

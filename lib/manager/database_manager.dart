@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:test_minpro_insta_clone/models/comment.dart';
 
 import '../models/post.dart';
 import '../models/user.dart';
@@ -109,5 +110,10 @@ class DatabaseManager {
   ///
   Future<void> updatePost({required PostModel updatePost}) async {
     await FirebaseFirestore.instance.collection('insta').doc(updatePost.postId).update(updatePost.toMap());
+  }
+
+  ///
+  Future<void> postComment({required CommentModel commentModel}) async {
+    await FirebaseFirestore.instance.collection('insta_comments').doc(commentModel.commentId).set(commentModel.toMap());
   }
 }
