@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/comment.dart';
 import '../models/post.dart';
 import '../models/user.dart';
 import '../repository/post_repository.dart';
@@ -15,10 +16,27 @@ class CommentViewModel extends ChangeNotifier {
 
   String comment = '';
 
+  List<CommentModel> comments = [];
+
+  bool isLoading = false;
+
   ///
   Future<void> postComment({required PostModel post}) async {
     await postRepository.postComment(post: post, postUser: currentUser, commentString: comment);
 
+    await getComments(postId: post.postId);
+
+    notifyListeners();
+  }
+
+  ///
+  Future<void> getComments({required String postId}) async {
+    isLoading = true;
+    notifyListeners();
+
+    await postRepository.getComments(postId: postId);
+
+    isLoading = false;
     notifyListeners();
   }
 }

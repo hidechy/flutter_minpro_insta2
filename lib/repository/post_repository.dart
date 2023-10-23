@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:test_minpro_insta_clone/models/comment.dart';
 import 'package:uuid/uuid.dart';
 
 import '../enums/constants.dart';
 import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
+import '../models/comment.dart';
 import '../models/location.dart';
 import '../models/post.dart';
 import '../models/user.dart';
@@ -97,5 +97,10 @@ class PostRepository {
     );
 
     await dbManager.postComment(commentModel: comment);
+  }
+
+  ///
+  Future<List<CommentModel>> getComments({required String postId}) async {
+    return dbManager.getComments(postId: postId);
   }
 }

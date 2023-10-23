@@ -116,4 +116,34 @@ class DatabaseManager {
   Future<void> postComment({required CommentModel commentModel}) async {
     await FirebaseFirestore.instance.collection('insta_comments').doc(commentModel.commentId).set(commentModel.toMap());
   }
+
+  ///
+  Future<List<CommentModel>> getComments({required String postId}) async {
+    //============== コメントがあるのかチェック
+    final query = await FirebaseFirestore.instance.collection('insta_comments').get();
+
+    if (query.docs.isEmpty) {
+      return [];
+    }
+    //============== コメントがあるのかチェック
+
+    final results = <CommentModel>[];
+
+    await FirebaseFirestore.instance
+        .collection('insta_comments')
+        .where('postId', isEqualTo: postId)
+        .orderBy('commentDateTime', descending: true)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach(
+          (element) => results.add(CommentModel.fromMap(element.data())),
+        );
+      },
+    );
+
+    debugPrint('comments: $results');
+
+    return results;
+  }
 }
