@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../enums/constants.dart';
+import '../models/comment.dart';
 import '../models/post.dart';
 import '../models/user.dart';
 import '../repository/post_repository.dart';
@@ -65,5 +66,10 @@ class FeedViewModel extends ChangeNotifier {
     isProcessing = false;
 
     notifyListeners();
+  }
+
+  ///
+  Future<List<CommentModel>> getComments({required String postId}) async {
+    return postRepository.getComments(postId: postId);
   }
 }

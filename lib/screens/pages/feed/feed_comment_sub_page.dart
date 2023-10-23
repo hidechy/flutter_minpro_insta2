@@ -56,18 +56,6 @@ class FeedCommentSubPage extends StatelessWidget {
                         future: model.getCommentUserInfo(userId: commentUserId),
                         builder: (context, AsyncSnapshot<UserModel> snapshot) {
                           if (snapshot.hasData && snapshot.data != null) {
-                            // return ListTile(
-                            //   leading: CirclePhoto(photoUrl: snapshot.data!.photoUrl, isImageFromFile: false),
-                            //   title: Text(snapshot.data!.inAppUserName),
-                            //   subtitle: Column(
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: [
-                            //       Text(comment.comment),
-                            //       Text(createTimeAgoString(comment.commentDateTime)),
-                            //     ],
-                            //   ),
-                            // );
-
                             return CommentDisplayPart(
                               postUserPhotoUrl: snapshot.data!.photoUrl,
                               name: snapshot.data!.inAppUserName,
