@@ -135,4 +135,9 @@ class PostRepository {
   Future<void> unlikeIt({required String userId, required PostModel post}) async {
     await dbManager.unlikeIt(userId: userId, post: post);
   }
+
+  ///
+  Future<void> deletePost({required String postId, required String imageStoragePath}) async {
+    await dbManager.deletePost(postId: postId, imageStoragePath: imageStoragePath);
+  }
 }

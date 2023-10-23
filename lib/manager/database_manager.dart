@@ -201,4 +201,31 @@ class DatabaseManager {
       });
     });
   }
+
+  ///
+  Future<void> deletePost({required String postId, required String imageStoragePath}) async {
+    await FirebaseFirestore.instance.collection('insta').doc(postId).delete();
+
+    await FirebaseFirestore.instance
+        .collection('insta_comments')
+        .where('postId', isEqualTo: postId)
+        .get()
+        .then((value) async {
+      value.docs.forEach((element) async {
+        await FirebaseFirestore.instance.collection('insta_comments').doc(element.id).delete();
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('insta_likes')
+        .where('postId', isEqualTo: postId)
+        .get()
+        .then((value) async {
+      value.docs.forEach((element) async {
+        await FirebaseFirestore.instance.collection('insta_likes').doc(element.id).delete();
+      });
+    });
+
+    await FirebaseStorage.instance.ref().child(imageStoragePath).delete();
+  }
 }

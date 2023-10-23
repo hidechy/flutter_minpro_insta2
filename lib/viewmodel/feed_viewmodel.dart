@@ -90,4 +90,19 @@ class FeedViewModel extends ChangeNotifier {
     await postRepository.unlikeIt(userId: userId, post: post);
     notifyListeners();
   }
+
+  ///
+  Future<void> deletePost({required PostModel post, required FeedMode feedMode}) async {
+    isProcessing = true;
+
+    notifyListeners();
+
+    await postRepository.deletePost(postId: post.postId, imageStoragePath: post.imageStoragePath);
+
+    await getPost(feedMode: feedMode);
+
+    isProcessing = false;
+
+    notifyListeners();
+  }
 }
