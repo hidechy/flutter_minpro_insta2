@@ -25,44 +25,58 @@ class PostEditSubPage extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).edit),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showConfirmDialog(
-                context: context,
-                title: S.of(context).editPost,
-                content: S.of(context).editPostConfirm,
-                onConfirmed: (isConfirmed) {
-                  if (isConfirmed) {
-                    _updatePost();
-                  }
-                },
-              );
-            },
-            icon: const Icon(Icons.done),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              UserCard(
-                photoUrl: postUser.photoUrl,
-                title: postUser.inAppUserName,
-                subTitle: post.locationString,
-              ),
-              PostCaptionPart(
-                postCaptionOpenMode: PostCaptionOpenMode.fromFeed,
-                post: post,
-              ),
+    return Consumer<FeedViewModel>(
+      builder: (context, model, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: (model.isProcessing) ? Text(S.of(context).underProcessing) : Text(S.of(context).editInfo),
+            leading: (model.isProcessing)
+                ? Container()
+                : IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.close),
+                  ),
+            actions: [
+              (model.isProcessing)
+                  ? Container()
+                  : IconButton(
+                      onPressed: () {
+                        showConfirmDialog(
+                          context: context,
+                          title: S.of(context).editPost,
+                          content: S.of(context).editPostConfirm,
+                          onConfirmed: (isConfirmed) {
+                            if (isConfirmed) {
+                              _updatePost();
+                            }
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.done),
+                    ),
             ],
           ),
-        ),
-      ),
+          body: SafeArea(
+            child: (model.isProcessing)
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        UserCard(
+                          photoUrl: postUser.photoUrl,
+                          title: postUser.inAppUserName,
+                          subTitle: post.locationString,
+                        ),
+                        PostCaptionPart(
+                          postCaptionOpenMode: PostCaptionOpenMode.fromFeed,
+                          post: post,
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+        );
+      },
     );
   }
 
