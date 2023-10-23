@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../manager/database_manager.dart';
