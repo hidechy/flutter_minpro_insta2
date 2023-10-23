@@ -65,14 +65,12 @@ class _PostCaptionInputTextFieldState extends State<PostCaptionInputTextField> {
         final viewModel = _context.read<PostViewModel>();
         // ignore: cascade_invocations
         viewModel.caption = _captionController.text;
-        debugPrint('caption: ${viewModel.caption}');
         break;
 
       case PostCaptionOpenMode.fromFeed:
         final viewModel = _context.read<FeedViewModel>();
         // ignore: cascade_invocations
         viewModel.caption = _captionController.text;
-        debugPrint('caption: ${viewModel.caption}');
         break;
 
       case null:

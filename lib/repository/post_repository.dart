@@ -53,7 +53,6 @@ class PostRepository {
       required String locationString}) async {
     final storageId = const Uuid().v1();
     final imageUrl = await dbManager.uploadImageToStorage(imageFile: imageFile, storageId: storageId);
-    //debugPrint('storageImageUrl : $imageUrl');
 
     final post = PostModel(
       postId: const Uuid().v1(),

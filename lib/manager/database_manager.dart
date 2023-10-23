@@ -82,8 +82,6 @@ class DatabaseManager {
       },
     );
 
-    debugPrint('posts: $results');
-
     return results;
   }
 
@@ -143,8 +141,6 @@ class DatabaseManager {
       },
     );
 
-    debugPrint('comments: $results');
-
     return results;
   }
 
@@ -182,8 +178,6 @@ class DatabaseManager {
         );
       },
     );
-
-    debugPrint('likes: $results');
 
     return results;
   }

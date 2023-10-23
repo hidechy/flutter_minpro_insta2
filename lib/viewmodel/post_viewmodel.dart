@@ -33,11 +33,8 @@ class PostViewModel extends ChangeNotifier {
 
     imageFile = await postRepository.pickImage(uploadType);
 
-    debugPrint('pickImages: ${imageFile?.path}');
-
     location = await postRepository.getCurrentLocation();
     locationString = (location != null) ? _toLocationString(location!) : '';
-    debugPrint('location: $locationString');
 
     // ignore: unrelated_type_equality_checks
     if (imageFile != '') {

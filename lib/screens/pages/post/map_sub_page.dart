@@ -63,8 +63,6 @@ class _MapSubPageState extends State<MapSubPage> {
 
   ///
   void onMapTapped(LatLng latLng) {
-    debugPrint('selected place: $latLng');
-
     _latLng = latLng;
     _createMarker();
   }

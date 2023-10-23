@@ -65,8 +65,6 @@ class UserRepository {
 
       return true;
     } catch (e) {
-      debugPrint(e.toString());
-
       return false;
     }
   }
