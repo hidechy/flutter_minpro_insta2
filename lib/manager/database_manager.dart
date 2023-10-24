@@ -85,11 +85,6 @@ class DatabaseManager {
   }
 
   ///
-  Future<List<PostModel>> getPostByUser({required String userId}) {
-    return Future.value([]);
-  }
-
-  ///
   Future<List<String>> getFollowingUserIds({required String userId}) async {
     final query = await FirebaseFirestore.instance.collection('users').doc(userId).collection('followings').get();
 
@@ -220,5 +215,33 @@ class DatabaseManager {
     });
 
     await FirebaseStorage.instance.ref().child(imageStoragePath).delete();
+  }
+
+  ///
+  Future<List<PostModel>> getPostByUser({required String userId}) async {
+    //============== 投稿があるのかチェック
+    final query = await FirebaseFirestore.instance.collection('insta').get();
+
+    if (query.docs.isEmpty) {
+      return [];
+    }
+    //============== 投稿があるのかチェック
+
+    final results = <PostModel>[];
+
+    await FirebaseFirestore.instance
+        .collection('insta')
+        .where('userId', isEqualTo: userId)
+        .orderBy('postDateTime', descending: true)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach(
+          (element) => results.add(PostModel.fromMap(element.data())),
+        );
+      },
+    );
+
+    return results;
   }
 }

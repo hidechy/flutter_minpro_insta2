@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../enums/constants.dart';
 import '../generated/l10n.dart';
 import 'pages/activity/activity_page.dart';
 import 'pages/feed/feed_page.dart';
@@ -21,7 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
   ///
   @override
   void initState() {
-    _pages = [FeedPage(), const SearchPage(), const PostPage(), const ActivityPage(), const ProfilePage()];
+    _pages = [
+      FeedPage(),
+      const SearchPage(),
+      const PostPage(),
+      const ActivityPage(),
+      const ProfilePage(profileMode: ProfileMode.myself),
+    ];
 
     super.initState();
   }

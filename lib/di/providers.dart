@@ -9,6 +9,7 @@ import '../viewmodel/comment_viewmodel.dart';
 import '../viewmodel/feed_viewmodel.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/post_viewmodel.dart';
+import '../viewmodel/profile_viewmodel.dart';
 
 List<SingleChildWidget> globalProviders = [...independentModels, ...dependentModels, ...viewModels];
 
@@ -47,6 +48,12 @@ List<SingleChildWidget> viewModels = [
   ),
   ChangeNotifierProvider<CommentViewModel>(
     create: (context) => CommentViewModel(
+      postRepository: context.read<PostRepository>(),
+      userRepository: context.read<UserRepository>(),
+    ),
+  ),
+  ChangeNotifierProvider<ProfileViewModel>(
+    create: (context) => ProfileViewModel(
       postRepository: context.read<PostRepository>(),
       userRepository: context.read<UserRepository>(),
     ),

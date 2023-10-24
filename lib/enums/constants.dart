@@ -5,3 +5,5 @@ enum PostCaptionOpenMode { fromPost, fromFeed }
 enum FeedMode { fromFeed, fromProfile }
 
 enum PostMenu { edit, delete, share }
+
+enum ProfileMode { myself, other }
