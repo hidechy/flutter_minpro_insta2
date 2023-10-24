@@ -4,15 +4,21 @@ import 'package:provider/provider.dart';
 import '../../enums/constants.dart';
 import '../../generated/l10n.dart';
 import '../../viewmodel/profile_viewmodel.dart';
+import '../pages/profile/profile_edit_page.dart';
 
+// ignore: must_be_immutable
 class ProfileBioPart extends StatelessWidget {
-  const ProfileBioPart({super.key, required this.profileMode});
+  ProfileBioPart({super.key, required this.profileMode});
 
   final ProfileMode profileMode;
+
+  late BuildContext _context;
 
   ///
   @override
   Widget build(BuildContext context) {
+    _context = context;
+
     final profileViewModel = context.read<ProfileViewModel>();
 
     return Column(
@@ -23,12 +29,17 @@ class ProfileBioPart extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: _openProfileEditPage,
             style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
             child: Text((profileMode == ProfileMode.myself) ? S.of(context).editProfile : 'フォローする'),
           ),
         ),
       ],
     );
+  }
+
+  ///
+  void _openProfileEditPage() {
+    Navigator.push(_context, MaterialPageRoute(builder: (context) => const ProfileEditPage()));
   }
 }

@@ -64,4 +64,10 @@ class ProfileViewModel extends ChangeNotifier {
   Future<int> getNumberOfFollowings() async {
     return userRepository.getNumberOfFollowings(user: profileUser);
   }
+
+  ///
+  Future<String> changeProfilePhoto() async {
+    final pickedImage = await postRepository.pickImage(UploadType.gallery);
+    return (pickedImage != null) ? pickedImage.path : '';
+  }
 }
