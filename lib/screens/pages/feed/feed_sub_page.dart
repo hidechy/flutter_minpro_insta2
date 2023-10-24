@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../enums/constants.dart';
 import '../../../models/user.dart';
@@ -29,7 +30,8 @@ class FeedSubPage extends StatelessWidget {
       } else {
         return RefreshIndicator(
           onRefresh: () => feedViewModel.getPost(feedMode: feedMode),
-          child: ListView.builder(
+          child: ScrollablePositionedList.builder(
+            initialScrollIndex: index ?? 0,
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: model.posts.length,
             itemBuilder: (context, index) {
