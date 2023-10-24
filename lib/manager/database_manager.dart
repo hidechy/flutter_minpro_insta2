@@ -5,12 +5,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:test_minpro_insta_clone/repository/user_repository.dart';
 
 import '../models/comment.dart';
 import '../models/like.dart';
 import '../models/post.dart';
 import '../models/user.dart';
+import '../repository/user_repository.dart';
 
 class DatabaseManager {
   ///
@@ -290,5 +290,24 @@ class DatabaseManager {
     });
 
     return soughtUsers;
+  }
+
+  ///
+  Future<void> follow({required UserModel profileUser, required UserModel currentUser}) async {
+    //CurrentUserにとってのfollowings
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.userId)
+        .collection('followings')
+        .doc(profileUser.userId)
+        .set({'userId': profileUser.userId});
+
+    //profileUserにとってのfollowers
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(profileUser.userId)
+        .collection('followers')
+        .doc(currentUser.userId)
+        .set({'userId': currentUser.userId});
   }
 }

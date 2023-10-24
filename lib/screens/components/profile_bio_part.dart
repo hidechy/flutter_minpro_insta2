@@ -28,11 +28,7 @@ class ProfileBioPart extends StatelessWidget {
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
-            onPressed: _openProfileEditPage,
-            style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-            child: Text((profileMode == ProfileMode.myself) ? S.of(context).editProfile : 'フォローする'),
-          ),
+          child: _button(),
         ),
       ],
     );
@@ -42,4 +38,38 @@ class ProfileBioPart extends StatelessWidget {
   void _openProfileEditPage() {
     Navigator.push(_context, MaterialPageRoute(builder: (context) => const ProfileEditPage()));
   }
+
+  ///
+  Widget _button() {
+    final profileViewModel = _context.read<ProfileViewModel>();
+
+    final isFollowing = profileViewModel.isFollowingProfileUser;
+
+    return ElevatedButton(
+      onPressed: () {
+        (profileMode == ProfileMode.myself)
+            ? _openProfileEditPage()
+            : isFollowing
+                ? _unFollow()
+                : _follow();
+      },
+      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+      child: Text(
+        (profileMode == ProfileMode.myself)
+            ? S.of(_context).editProfile
+            : isFollowing
+                ? S.of(_context).unFollow
+                : S.of(_context).follow,
+      ),
+    );
+  }
+
+  ///
+  Future<void> _follow() async {
+    final profileViewModel = _context.read<ProfileViewModel>();
+    await profileViewModel.follow();
+  }
+
+  ///
+  Future<void> _unFollow() async {}
 }
