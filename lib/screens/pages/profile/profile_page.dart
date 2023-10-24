@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../enums/constants.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/profile_viewmodel.dart';
+import '../../components/profile_detail_part.dart';
 import '../../components/profile_setting_part.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -34,7 +35,7 @@ class ProfilePage extends StatelessWidget {
                   floating: true,
                   expandedHeight: 280,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Container(),
+                    background: ProfileDetailPart(profileMode: profileMode),
                   ),
                   actions: [
                     ProfileSettingPart(profileMode: profileMode),
