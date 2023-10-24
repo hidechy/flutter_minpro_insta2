@@ -22,12 +22,12 @@ class ProfileRecordPart extends StatelessWidget {
         FutureBuilder(
             future: profileViewModel.getNumberOfFollowers(),
             builder: (context, AsyncSnapshot<int> snapshot) {
-              return _userRecordWidget(title: S.of(context).followers, score: 99);
+              return _userRecordWidget(title: S.of(context).followers, score: (snapshot.hasData) ? snapshot.data! : 0);
             }),
         FutureBuilder(
             future: profileViewModel.getNumberOfFollowings(),
             builder: (context, AsyncSnapshot<int> snapshot) {
-              return _userRecordWidget(title: S.of(context).followings, score: 99);
+              return _userRecordWidget(title: S.of(context).followings, score: (snapshot.hasData) ? snapshot.data! : 0);
             }),
       ],
     );

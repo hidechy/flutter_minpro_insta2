@@ -57,11 +57,11 @@ class ProfileViewModel extends ChangeNotifier {
 
   ///
   Future<int> getNumberOfFollowers() async {
-    return 0;
+    return userRepository.getNumberOfFollowers(user: profileUser);
   }
 
   ///
   Future<int> getNumberOfFollowings() async {
-    return 0;
+    return userRepository.getNumberOfFollowings(user: profileUser);
   }
 }

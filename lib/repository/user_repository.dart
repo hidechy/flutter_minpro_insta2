@@ -92,4 +92,14 @@ class UserRepository {
 
     currentUser = null;
   }
+
+  ///
+  Future<int> getNumberOfFollowers({required UserModel user}) async {
+    return (await databaseManager.getFollowerUserIds(userId: user.userId)).length;
+  }
+
+  ///
+  Future<int> getNumberOfFollowings({required UserModel user}) async {
+    return (await databaseManager.getFollowingUserIds(userId: user.userId)).length;
+  }
 }

@@ -244,4 +244,20 @@ class DatabaseManager {
 
     return results;
   }
+
+  ///
+  Future<List<String>> getFollowerUserIds({required String userId}) async {
+    final query = await FirebaseFirestore.instance.collection('users').doc(userId).collection('followers').get();
+
+    if (query.docs.isEmpty) {
+      return [];
+    }
+
+    final userIds = <String>[];
+    query.docs.forEach((element) {
+      userIds.add(element.data()['userId']);
+    });
+
+    return userIds;
+  }
 }
