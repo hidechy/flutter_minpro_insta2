@@ -13,20 +13,20 @@ class ProfileDetailPart extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(20),
+    return Padding(
+      padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             children: [
               Expanded(child: ProfileImagePart()),
               Expanded(flex: 3, child: ProfileRecordPart()),
             ],
           ),
-          SizedBox(height: 10),
-          ProfileBioPart(),
+          const SizedBox(height: 10),
+          ProfileBioPart(profileMode: profileMode),
         ],
       ),
     );
