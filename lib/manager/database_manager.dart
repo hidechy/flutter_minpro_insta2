@@ -310,4 +310,27 @@ class DatabaseManager {
         .doc(currentUser.userId)
         .set({'userId': currentUser.userId});
   }
+
+  ///
+  Future<bool> checkIsFollowing({required UserModel profileUser, required UserModel currentUser}) async {
+    final query =
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.userId).collection('followings').get();
+
+    if (query.docs.isEmpty) {
+      return false;
+    }
+
+    final checkQuery = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.userId)
+        .collection('followings')
+        .where('userId', isEqualTo: profileUser.userId)
+        .get();
+
+    if (checkQuery.docs.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -149,4 +149,13 @@ class UserRepository {
       await databaseManager.follow(profileUser: profileUser, currentUser: currentUser!);
     }
   }
+
+  ///
+  Future<bool> checkIsFollowing({required UserModel profileUser}) async {
+    if (currentUser != null) {
+      return databaseManager.checkIsFollowing(profileUser: profileUser, currentUser: currentUser!);
+    } else {
+      return false;
+    }
+  }
 }

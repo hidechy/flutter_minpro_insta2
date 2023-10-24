@@ -30,6 +30,9 @@ class ProfileViewModel extends ChangeNotifier {
         break;
       case ProfileMode.other:
         profileUser = selectUser!;
+
+        checkIsFollowing();
+
         break;
     }
   }
@@ -104,6 +107,12 @@ class ProfileViewModel extends ChangeNotifier {
     await userRepository.follow(profileUser: profileUser);
 
     isFollowingProfileUser = true;
+    notifyListeners();
+  }
+
+  ///
+  Future<void> checkIsFollowing() async {
+    isFollowingProfileUser = await userRepository.checkIsFollowing(profileUser: profileUser);
     notifyListeners();
   }
 }
