@@ -5,6 +5,7 @@ import '../../../enums/constants.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/profile_viewmodel.dart';
 import '../../components/profile_detail_part.dart';
+import '../../components/profile_post_grid_part.dart';
 import '../../components/profile_setting_part.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -41,6 +42,7 @@ class ProfilePage extends StatelessWidget {
                     ProfileSettingPart(profileMode: profileMode),
                   ],
                 ),
+                ProfilePostGridPart(posts: model.posts),
               ],
             );
           },

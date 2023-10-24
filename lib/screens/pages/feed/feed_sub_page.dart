@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../enums/constants.dart';
+import '../../../models/user.dart';
 import '../../../viewmodel/feed_viewmodel.dart';
 import '../../components/feed_post_tile.dart';
 
 class FeedSubPage extends StatelessWidget {
-  const FeedSubPage({super.key, required this.feedMode});
+  const FeedSubPage({super.key, required this.feedMode, this.feedUser, this.index});
 
   final FeedMode feedMode;
+  final UserModel? feedUser;
+  final int? index;
 
   ///
   @override
@@ -16,7 +19,7 @@ class FeedSubPage extends StatelessWidget {
     final feedViewModel = context.read<FeedViewModel>();
 
     // ignore: cascade_invocations
-    feedViewModel.setFeedUser(feedMode: feedMode);
+    feedViewModel.setFeedUser(feedMode: feedMode, profileUser: feedUser);
 
     Future(() => feedViewModel.getPost(feedMode: feedMode));
 

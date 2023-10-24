@@ -38,13 +38,13 @@ class FeedViewModel extends ChangeNotifier {
   }
 
   ///
-  void setFeedUser({required FeedMode feedMode}) {
+  void setFeedUser({required FeedMode feedMode, UserModel? profileUser}) {
     switch (feedMode) {
       case FeedMode.fromFeed:
         feedUser = currentUser;
         break;
       case FeedMode.fromProfile:
-        feedUser = null; //引数
+        feedUser = profileUser; //引数
         break;
     }
   }
