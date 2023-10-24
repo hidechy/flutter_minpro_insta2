@@ -260,4 +260,9 @@ class DatabaseManager {
 
     return userIds;
   }
+
+  ///
+  Future<void> updateProfile({required UserModel updateUser}) async {
+    await FirebaseFirestore.instance.collection('users').doc(updateUser.userId).update(updateUser.toMap());
+  }
 }

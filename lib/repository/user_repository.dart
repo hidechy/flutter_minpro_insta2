@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:uuid/uuid.dart';
 
 import '../manager/database_manager.dart';
 import '../models/user.dart';
@@ -101,5 +104,37 @@ class UserRepository {
   ///
   Future<int> getNumberOfFollowings({required UserModel user}) async {
     return (await databaseManager.getFollowingUserIds(userId: user.userId)).length;
+  }
+
+  ///
+  Future<void> updateProfile({
+    required UserModel profileUser,
+    required String name,
+    required String bio,
+    required String photoUrl,
+    required bool isImageFromFile,
+  }) async {
+    dynamic updatePhotoUrl;
+
+    if (isImageFromFile) {
+      final imageFile = File(photoUrl);
+      final storageId = const Uuid().v1();
+      updatePhotoUrl = await databaseManager.uploadImageToStorage(imageFile: imageFile, storageId: storageId);
+    }
+
+    final userBeforeUpdate = await databaseManager.getUserInfoFromDbById(profileUser.userId);
+
+    final updateUser = userBeforeUpdate.copyWith(
+      inAppUserName: name,
+      photoUrl: isImageFromFile ? updatePhotoUrl : userBeforeUpdate.photoUrl,
+      bio: bio,
+    );
+
+    await databaseManager.updateProfile(updateUser: updateUser);
+  }
+
+  ///
+  Future<void> getCurrentUserById(String userId) async {
+    currentUser = await databaseManager.getUserInfoFromDbById(userId);
   }
 }

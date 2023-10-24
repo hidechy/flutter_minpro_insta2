@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../viewmodel/profile_viewmodel.dart';
 import '../../components/circle_photo.dart';
+import '../../components/confirm_dialog.dart';
 
 class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({super.key});
@@ -32,6 +33,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
     // ignore: avoid_bool_literals_in_conditional_expressions
     _isImageFromFile = (profileViewModel.profileUser.photoUrl == '') ? true : false;
+
+    nameController.text = profileViewModel.profileUser.inAppUserName;
+    bioController.text = profileViewModel.profileUser.bio;
   }
 
   ///
@@ -48,7 +52,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         title: Text(S.of(context).editProfile),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showConfirmDialog(
+                context: context,
+                title: S.of(context).editProfile,
+                content: S.of(context).editProfileConfirm,
+                onConfirmed: (isConfirmed) {
+                  if (isConfirmed) {
+                    _updateProfile();
+                  }
+                },
+              );
+            },
             icon: const Icon(Icons.done),
           ),
         ],
@@ -99,5 +114,20 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     setState(() {
       _isImageFromFile = true;
     });
+  }
+
+  ///
+  Future<void> _updateProfile() async {
+    final profileViewModel = context.read<ProfileViewModel>();
+
+    await profileViewModel.updateProfile(
+      name: nameController.text,
+      bio: bioController.text,
+      photoUrl: _photoUrl,
+      isImageFromFile: _isImageFromFile,
+    );
+
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 }

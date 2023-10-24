@@ -70,4 +70,30 @@ class ProfileViewModel extends ChangeNotifier {
     final pickedImage = await postRepository.pickImage(UploadType.gallery);
     return (pickedImage != null) ? pickedImage.path : '';
   }
+
+  ///
+  Future<void> updateProfile({
+    required String name,
+    required String bio,
+    required String photoUrl,
+    required bool isImageFromFile,
+  }) async {
+    isProcessing = true;
+    notifyListeners();
+
+    await userRepository.updateProfile(
+      profileUser: profileUser,
+      name: name,
+      bio: bio,
+      photoUrl: photoUrl,
+      isImageFromFile: isImageFromFile,
+    );
+
+    await userRepository.getCurrentUserById(profileUser.userId);
+
+    profileUser = currentUser;
+
+    isProcessing = false;
+    notifyListeners();
+  }
 }
