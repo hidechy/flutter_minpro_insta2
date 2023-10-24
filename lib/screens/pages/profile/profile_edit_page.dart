@@ -69,35 +69,43 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              Center(child: CirclePhoto(radius: 60, photoUrl: _photoUrl, isImageFromFile: _isImageFromFile)),
-              const SizedBox(height: 16),
-              Center(
-                child: InkWell(
-                  onTap: _changeProfilePhoto,
-                  child: Text(
-                    S.of(context).changeProfilePhoto,
-                    style: const TextStyle(fontSize: 20, color: Colors.blueAccent),
+        child: Consumer<ProfileViewModel>(
+          builder: (context, model, child) {
+            if (model.isProcessing) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  Center(child: CirclePhoto(radius: 60, photoUrl: _photoUrl, isImageFromFile: _isImageFromFile)),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: InkWell(
+                      onTap: _changeProfilePhoto,
+                      child: Text(
+                        S.of(context).changeProfilePhoto,
+                        style: const TextStyle(fontSize: 20, color: Colors.blueAccent),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 16),
+                  const Text('Name'),
+                  TextField(
+                    controller: nameController,
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Bio'),
+                  TextField(
+                    controller: bioController,
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              const Text('Name'),
-              TextField(
-                controller: nameController,
-              ),
-              const SizedBox(height: 16),
-              const Text('Bio'),
-              TextField(
-                controller: bioController,
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
