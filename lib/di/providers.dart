@@ -10,6 +10,7 @@ import '../viewmodel/feed_viewmodel.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/post_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
+import '../viewmodel/search_viewmodel.dart';
 
 List<SingleChildWidget> globalProviders = [...independentModels, ...dependentModels, ...viewModels];
 
@@ -55,6 +56,11 @@ List<SingleChildWidget> viewModels = [
   ChangeNotifierProvider<ProfileViewModel>(
     create: (context) => ProfileViewModel(
       postRepository: context.read<PostRepository>(),
+      userRepository: context.read<UserRepository>(),
+    ),
+  ),
+  ChangeNotifierProvider<SearchViewModel>(
+    create: (context) => SearchViewModel(
       userRepository: context.read<UserRepository>(),
     ),
   ),

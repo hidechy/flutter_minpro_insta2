@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:test_minpro_insta_clone/repository/user_repository.dart';
 
 import '../models/comment.dart';
 import '../models/like.dart';
@@ -264,5 +265,30 @@ class DatabaseManager {
   ///
   Future<void> updateProfile({required UserModel updateUser}) async {
     await FirebaseFirestore.instance.collection('users').doc(updateUser.userId).update(updateUser.toMap());
+  }
+
+  ///
+  Future<List<UserModel>> searchUsers({required String queryString}) async {
+    //============== ユーザーがあるのかチェック
+    final query = await FirebaseFirestore.instance
+        .collection('users')
+        .orderBy('inAppUserName')
+        .endAt(['$queryString\uf8ff']).startAt([queryString]).get();
+
+    if (query.docs.isEmpty) {
+      return [];
+    }
+    //============== ユーザーがあるのかチェック
+
+    final soughtUsers = <UserModel>[];
+
+    query.docs.forEach((element) {
+      final selectedUser = UserModel.fromMap(element.data());
+      if (selectedUser.userId != UserRepository.currentUser?.userId) {
+        soughtUsers.add(selectedUser);
+      }
+    });
+
+    return soughtUsers;
   }
 }

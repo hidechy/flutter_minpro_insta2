@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _pages = [
       FeedPage(),
-      const SearchPage(),
+      SearchPage(),
       const PostPage(),
       const ActivityPage(),
       const ProfilePage(profileMode: ProfileMode.myself),
