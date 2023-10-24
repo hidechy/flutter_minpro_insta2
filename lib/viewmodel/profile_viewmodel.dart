@@ -48,4 +48,20 @@ class ProfileViewModel extends ChangeNotifier {
     await userRepository.signOut();
     notifyListeners();
   }
+
+  ///
+  Future<int> getNumberOfPosts() async {
+    posts = await postRepository.getPosts(feedMode: FeedMode.fromProfile, user: profileUser);
+    return posts.length;
+  }
+
+  ///
+  Future<int> getNumberOfFollowers() async {
+    return 0;
+  }
+
+  ///
+  Future<int> getNumberOfFollowings() async {
+    return 0;
+  }
 }
