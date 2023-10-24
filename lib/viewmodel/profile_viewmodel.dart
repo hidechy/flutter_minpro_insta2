@@ -115,4 +115,12 @@ class ProfileViewModel extends ChangeNotifier {
     isFollowingProfileUser = await userRepository.checkIsFollowing(profileUser: profileUser);
     notifyListeners();
   }
+
+  ///
+  Future<void> unFollow() async {
+    await userRepository.unFollow(profileUser: profileUser);
+
+    isFollowingProfileUser = false;
+    notifyListeners();
+  }
 }

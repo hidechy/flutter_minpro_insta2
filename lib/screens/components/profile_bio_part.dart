@@ -71,5 +71,8 @@ class ProfileBioPart extends StatelessWidget {
   }
 
   ///
-  Future<void> _unFollow() async {}
+  Future<void> _unFollow() async {
+    final profileViewModel = _context.read<ProfileViewModel>();
+    await profileViewModel.unFollow();
+  }
 }

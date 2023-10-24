@@ -333,4 +333,21 @@ class DatabaseManager {
       return false;
     }
   }
+
+  ///
+  Future<void> unFollow({required UserModel profileUser, required UserModel currentUser}) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.userId)
+        .collection('followings')
+        .doc(profileUser.userId)
+        .delete();
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(profileUser.userId)
+        .collection('followers')
+        .doc(currentUser.userId)
+        .delete();
+  }
 }

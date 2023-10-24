@@ -158,4 +158,11 @@ class UserRepository {
       return false;
     }
   }
+
+  ///
+  Future<void> unFollow({required UserModel profileUser}) async {
+    if (currentUser != null) {
+      await databaseManager.unFollow(profileUser: profileUser, currentUser: currentUser!);
+    }
+  }
 }
