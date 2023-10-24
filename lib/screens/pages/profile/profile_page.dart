@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../enums/constants.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/profile_viewmodel.dart';
+import '../../components/profile_setting_part.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key, required this.profileMode, this.selectUser});
@@ -25,9 +26,20 @@ class ProfilePage extends StatelessWidget {
       body: SafeArea(
         child: Consumer<ProfileViewModel>(
           builder: (context, model, child) {
-            return Column(
-              children: [
-                Text(model.posts.length.toString()),
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  title: Text(model.profileUser.inAppUserName),
+                  pinned: true,
+                  floating: true,
+                  expandedHeight: 280,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(),
+                  ),
+                  actions: [
+                    ProfileSettingPart(profileMode: profileMode),
+                  ],
+                ),
               ],
             );
           },

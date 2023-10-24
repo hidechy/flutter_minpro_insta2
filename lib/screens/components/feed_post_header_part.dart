@@ -8,6 +8,7 @@ import '../../models/post.dart';
 import '../../models/user.dart';
 import '../../viewmodel/feed_viewmodel.dart';
 import '../pages/post/post_edit_sub_page.dart';
+import '../pages/profile/profile_sub_page.dart';
 import 'confirm_dialog.dart';
 import 'user_card.dart';
 
@@ -51,6 +52,7 @@ class FeedPostHeaderPart extends StatelessWidget {
           }
         },
       ),
+      onTap: _openProfile,
     );
   }
 
@@ -91,5 +93,20 @@ class FeedPostHeaderPart extends StatelessWidget {
   Future<void> _deletePost({required PostModel post}) async {
     final feedViewModel = _context.read<FeedViewModel>();
     await feedViewModel.deletePost(post: post, feedMode: feedMode);
+  }
+
+  ///
+  void _openProfile() {
+    final feedViewModel = _context.read<FeedViewModel>();
+
+    Navigator.push(
+      _context,
+      MaterialPageRoute(
+        builder: (context) => ProfileSubPage(
+          profileMode: (postUser.userId == feedViewModel.currentUser.userId) ? ProfileMode.myself : ProfileMode.other,
+          selectUser: postUser,
+        ),
+      ),
+    );
   }
 }
