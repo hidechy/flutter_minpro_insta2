@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../../../enums/constants.dart';
 import '../../../generated/l10n.dart';
+import '../../../models/user.dart';
 import '../../../viewmodel/profile_viewmodel.dart';
 import '../../components/user_card.dart';
+import 'profile_sub_page.dart';
 
 // ignore: must_be_immutable
 class ProfileWhoCareSubPage extends StatelessWidget {
@@ -38,6 +40,9 @@ class ProfileWhoCareSubPage extends StatelessWidget {
                         photoUrl: model.caresMeUsers[index].photoUrl,
                         title: model.caresMeUsers[index].inAppUserName,
                         subTitle: model.caresMeUsers[index].bio,
+                        onTap: () {
+                          _openProfileScreen(user: model.caresMeUsers[index]);
+                        },
                       );
                     },
                   );
@@ -57,5 +62,20 @@ class ProfileWhoCareSubPage extends StatelessWidget {
       case WhoCaresMeMode.followToMe:
         return S.of(_context).followers;
     }
+  }
+
+  ///
+  void _openProfileScreen({required UserModel user}) {
+    final profileViewModel = _context.read<ProfileViewModel>();
+
+    Navigator.push(
+      _context,
+      MaterialPageRoute(
+        builder: (context) => ProfileSubPage(
+          profileMode: (user.userId == profileViewModel.currentUser.userId) ? ProfileMode.myself : ProfileMode.other,
+          selectUser: user,
+        ),
+      ),
+    );
   }
 }
