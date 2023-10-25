@@ -350,4 +350,49 @@ class DatabaseManager {
         .doc(currentUser.userId)
         .delete();
   }
+
+  ///
+  Future<List<UserModel>> getLikesUsers({required String postId}) async {
+    //============== その投稿のライクがあるのかチェック
+    final query = await FirebaseFirestore.instance.collection('insta_likes').where('postId', isEqualTo: postId).get();
+
+    if (query.docs.isEmpty) {
+      return [];
+    }
+    //============== その投稿のライクがあるのかチェック
+
+    //============== その投稿にライクをくれたユーザーのID
+    final userIds = <String>[];
+
+    query.docs.forEach((element) => userIds.add(element.data()['likeUserId']));
+    //============== その投稿にライクをくれたユーザーのID
+
+    final results = <UserModel>[];
+
+    await Future.forEach(userIds, (element) async => results.add(await getUserInfoFromDbById(element)));
+
+    return results;
+  }
+
+  ///
+  Future<List<UserModel>> getFollowToMeUsers({required String myUserId}) async {
+    final followerUserIds = await getFollowerUserIds(userId: myUserId);
+
+    final results = <UserModel>[];
+
+    await Future.forEach(followerUserIds, (element) async => results.add(await getUserInfoFromDbById(element)));
+
+    return results;
+  }
+
+  ///
+  Future<List<UserModel>> getFollowFromMeUsers({required String myUserId}) async {
+    final followingUserIds = await getFollowingUserIds(userId: myUserId);
+
+    final results = <UserModel>[];
+
+    await Future.forEach(followingUserIds, (element) async => results.add(await getUserInfoFromDbById(element)));
+
+    return results;
+  }
 }

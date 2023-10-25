@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uuid/uuid.dart';
 
+import '../enums/constants.dart';
 import '../manager/database_manager.dart';
 import '../models/user.dart';
 
@@ -164,5 +165,24 @@ class UserRepository {
     if (currentUser != null) {
       await databaseManager.unFollow(profileUser: profileUser, currentUser: currentUser!);
     }
+  }
+
+  ///
+  Future<List<UserModel>> getCaresMeUser({required WhoCaresMeMode whoCaresMeMode, required String postOrUserId}) async {
+    var results = <UserModel>[];
+
+    switch (whoCaresMeMode) {
+      case WhoCaresMeMode.like:
+        results = await databaseManager.getLikesUsers(postId: postOrUserId);
+        break;
+      case WhoCaresMeMode.followToMe:
+        results = await databaseManager.getFollowToMeUsers(myUserId: postOrUserId);
+        break;
+      case WhoCaresMeMode.followFromMe:
+        results = await databaseManager.getFollowFromMeUsers(myUserId: postOrUserId);
+        break;
+    }
+
+    return results;
   }
 }

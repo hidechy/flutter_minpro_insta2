@@ -22,6 +22,8 @@ class ProfileViewModel extends ChangeNotifier {
 
   bool isFollowingProfileUser = false;
 
+  List<UserModel> caresMeUsers = [];
+
   ///
   void setProfileUser({required ProfileMode profileMode, UserModel? selectUser}) {
     switch (profileMode) {
@@ -121,6 +123,16 @@ class ProfileViewModel extends ChangeNotifier {
     await userRepository.unFollow(profileUser: profileUser);
 
     isFollowingProfileUser = false;
+    notifyListeners();
+  }
+
+  ///
+  Future<void> getCaresMeUser({
+    required WhoCaresMeMode whoCaresMeMode,
+    required String postOrUserId,
+  }) async {
+    caresMeUsers = await userRepository.getCaresMeUser(whoCaresMeMode: whoCaresMeMode, postOrUserId: postOrUserId);
+
     notifyListeners();
   }
 }

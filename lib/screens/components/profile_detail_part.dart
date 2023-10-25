@@ -19,9 +19,9 @@ class ProfileDetailPart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Expanded(child: ProfileImagePart()),
+              const Expanded(child: ProfileImagePart()),
               Expanded(flex: 3, child: ProfileRecordPart()),
             ],
           ),

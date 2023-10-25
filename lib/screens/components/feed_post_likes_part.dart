@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../enums/constants.dart';
 import '../../generated/l10n.dart';
 import '../../models/like.dart';
 import '../../models/post.dart';
 import '../../models/user.dart';
 import '../../viewmodel/feed_viewmodel.dart';
 import '../pages/feed/feed_comment_sub_page.dart';
+import '../pages/profile/profile_who_care_sub_page.dart';
 
 // ignore: must_be_immutable
 class FeedPostLikesPart extends StatelessWidget {
@@ -44,7 +46,10 @@ class FeedPostLikesPart extends StatelessWidget {
                     IconButton(onPressed: _openCommentSubPage, icon: const Icon(Icons.comment)),
                   ],
                 ),
-                Text('${snapshot.data!.likes.length} ${S.of(context).likes}'),
+                GestureDetector(
+                  onTap: _checkLikesUser,
+                  child: Text('${snapshot.data!.likes.length} ${S.of(context).likes}'),
+                ),
               ],
             );
           } else {
@@ -73,5 +78,15 @@ class FeedPostLikesPart extends StatelessWidget {
   Future<void> _unlikeIt({required String userId}) async {
     final feedViewModel = _context.read<FeedViewModel>();
     await feedViewModel.unlikeIt(userId: userId, post: post);
+  }
+
+  ///
+  void _checkLikesUser() {
+    Navigator.push(
+      _context,
+      MaterialPageRoute(
+        builder: (context) => ProfileWhoCareSubPage(whoCaresMeMode: WhoCaresMeMode.like, postOrUserId: post.postId),
+      ),
+    );
   }
 }
