@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../enums/constants.dart';
 import '../../../generated/l10n.dart';
+import '../../../repository/user_repository.dart';
 import '../../components/search_user_delegate.dart';
 import '../profile/profile_sub_page.dart';
 
@@ -44,7 +45,11 @@ class SearchPage extends StatelessWidget {
       await Navigator.push(
         _context,
         MaterialPageRoute(
-          builder: (context) => ProfileSubPage(profileMode: ProfileMode.other, selectUser: selectedUser),
+          builder: (context) => ProfileSubPage(
+            profileMode: ProfileMode.other,
+            selectUser: selectedUser,
+            stackUserId: UserRepository.currentUser!.userId,
+          ),
         ),
       );
     }

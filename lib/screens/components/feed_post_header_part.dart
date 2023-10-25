@@ -105,6 +105,7 @@ class FeedPostHeaderPart extends StatelessWidget {
         builder: (context) => ProfileSubPage(
           profileMode: (postUser.userId == feedViewModel.currentUser.userId) ? ProfileMode.myself : ProfileMode.other,
           selectUser: postUser,
+          stackUserId: currentUser.userId,
         ),
       ),
     );

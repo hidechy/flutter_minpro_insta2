@@ -26,29 +26,27 @@ class ProfileWhoCareSubPage extends StatelessWidget {
 
     Future(() => profileViewModel.getCaresMeUser(whoCaresMeMode: whoCaresMeMode, postOrUserId: postOrUserId));
 
-    return Scaffold(
-      appBar: AppBar(title: Text(_titleText())),
-      body: SafeArea(
-        child: Consumer<ProfileViewModel>(
-          builder: (context, model, child) {
-            return model.caresMeUsers.isEmpty
-                ? Container()
-                : ListView.builder(
-                    itemCount: model.caresMeUsers.length,
-                    itemBuilder: (context, index) {
-                      return UserCard(
-                        photoUrl: model.caresMeUsers[index].photoUrl,
-                        title: model.caresMeUsers[index].inAppUserName,
-                        subTitle: model.caresMeUsers[index].bio,
-                        onTap: () {
-                          _openProfileScreen(user: model.caresMeUsers[index]);
-                        },
-                      );
-                    },
-                  );
-          },
-        ),
-      ),
+    return Consumer<ProfileViewModel>(
+      builder: (context, model, child) {
+        return Scaffold(
+          appBar: AppBar(title: Text(_titleText())),
+          body: SafeArea(
+            child: ListView.builder(
+              itemCount: model.caresMeUsers.length,
+              itemBuilder: (context, index) {
+                return UserCard(
+                  photoUrl: model.caresMeUsers[index].photoUrl,
+                  title: model.caresMeUsers[index].inAppUserName,
+                  subTitle: model.caresMeUsers[index].bio,
+                  onTap: () {
+                    _openProfileScreen(user: model.caresMeUsers[index]);
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -74,6 +72,7 @@ class ProfileWhoCareSubPage extends StatelessWidget {
         builder: (context) => ProfileSubPage(
           profileMode: (user.userId == profileViewModel.currentUser.userId) ? ProfileMode.myself : ProfileMode.other,
           selectUser: user,
+          stackUserId: postOrUserId,
         ),
       ),
     );

@@ -24,8 +24,18 @@ class ProfileViewModel extends ChangeNotifier {
 
   List<UserModel> caresMeUsers = [];
 
+  List<String> stackUserIds = [];
+
+  String psUserId = '';
+
+  WhoCaresMeMode wcmMode = WhoCaresMeMode.like;
+
   ///
-  void setProfileUser({required ProfileMode profileMode, UserModel? selectUser}) {
+  void setProfileUser({required ProfileMode profileMode, UserModel? selectUser, String? stackUserId}) {
+    if (stackUserId != null) {
+      stackUserIds.add(stackUserId);
+    }
+
     switch (profileMode) {
       case ProfileMode.myself:
         profileUser = currentUser;
@@ -131,8 +141,28 @@ class ProfileViewModel extends ChangeNotifier {
     required WhoCaresMeMode whoCaresMeMode,
     required String postOrUserId,
   }) async {
+    wcmMode = whoCaresMeMode;
+
     caresMeUsers = await userRepository.getCaresMeUser(whoCaresMeMode: whoCaresMeMode, postOrUserId: postOrUserId);
 
     notifyListeners();
+  }
+
+  ///
+  Future<void> popStackUserId() async {
+    if (stackUserIds.isNotEmpty) {
+      psUserId = stackUserIds.last;
+      stackUserIds.removeLast();
+      profileUser = await userRepository.getUserById(userId: psUserId);
+    } else {
+      profileUser = currentUser;
+    }
+
+    await getPost();
+  }
+
+  ///
+  void rebuildProfileWhoCareSubPage({required String postOrUserId}) {
+    getCaresMeUser(whoCaresMeMode: wcmMode, postOrUserId: postOrUserId);
   }
 }
