@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../enums/constants.dart';
-import '../../generated/l10n.dart';
-import '../../models/post.dart';
-import '../../models/user.dart';
-import '../../viewmodel/feed_viewmodel.dart';
-import '../pages/post/post_edit_sub_page.dart';
-import '../pages/profile/profile_sub_page.dart';
-import 'confirm_dialog.dart';
-import 'user_card.dart';
+import '../../../enums/constants.dart';
+import '../../../generated/l10n.dart';
+import '../../../models/post.dart';
+import '../../../models/user.dart';
+import '../../../viewmodel/feed_viewmodel.dart';
+import '../post/post_edit_sub_page.dart';
+import '../profile/profile_sub_page.dart';
+import '../../components/confirm_dialog.dart';
+import '../../components/user_card.dart';
 
 // ignore: must_be_immutable
 class FeedPostHeaderPart extends StatelessWidget {

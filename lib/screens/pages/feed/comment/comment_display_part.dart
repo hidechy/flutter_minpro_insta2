@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../util/functions.dart';
-import 'circle_photo.dart';
+import '../../../../util/functions.dart';
+import '../../../components/circle_photo.dart';
 import 'comment_rich_text.dart';
 
 class CommentDisplayPart extends StatelessWidget {

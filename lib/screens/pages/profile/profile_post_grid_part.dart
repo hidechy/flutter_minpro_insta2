@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../models/post.dart';
-import '../../viewmodel/profile_viewmodel.dart';
-import '../feed_screen.dart';
-import 'image_from_url.dart';
+import '../../../enums/constants.dart';
+import '../../../models/post.dart';
+import '../../../viewmodel/profile_viewmodel.dart';
+import '../../feed_screen.dart';
+import '../../components/image_from_url.dart';
 
 // ignore: must_be_immutable
 class ProfilePostGridPart extends StatelessWidget {

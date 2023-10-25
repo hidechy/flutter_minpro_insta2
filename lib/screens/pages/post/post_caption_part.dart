@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../models/post.dart';
-import '../../viewmodel/post_viewmodel.dart';
-import '../pages/post/enlarge_image_sub_page.dart';
-import 'hero_image.dart';
-import 'image_from_url.dart';
+import '../../../enums/constants.dart';
+import '../../../models/post.dart';
+import '../../../viewmodel/post_viewmodel.dart';
+import 'enlarge_image_sub_page.dart';
+import '../../components/hero_image.dart';
+import '../../components/image_from_url.dart';
 import 'post_caption_input_text_field.dart';
 
 // ignore: must_be_immutable

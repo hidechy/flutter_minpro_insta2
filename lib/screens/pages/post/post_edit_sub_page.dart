@@ -7,7 +7,7 @@ import '../../../models/post.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/feed_viewmodel.dart';
 import '../../components/confirm_dialog.dart';
-import '../../components/post_caption_part.dart';
+import 'post_caption_part.dart';
 import '../../components/user_card.dart';
 
 // ignore: must_be_immutable

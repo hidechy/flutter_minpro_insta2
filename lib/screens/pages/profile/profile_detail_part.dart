@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../enums/constants.dart';
+import '../../../enums/constants.dart';
 import 'profile_bio_part.dart';
 import 'profile_image_part.dart';
 import 'profile_record_part.dart';

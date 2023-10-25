@@ -5,8 +5,8 @@ import '../../../generated/l10n.dart';
 import '../../../models/post.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/comment_viewmodel.dart';
-import '../../components/comment_display_part.dart';
-import '../../components/comment_input_part.dart';
+import 'comment/comment_display_part.dart';
+import 'comment/comment_input_part.dart';
 import '../../components/confirm_dialog.dart';
 
 // ignore: must_be_immutable

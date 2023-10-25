@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../generated/l10n.dart';
-import '../../models/like.dart';
-import '../../models/post.dart';
-import '../../models/user.dart';
-import '../../viewmodel/feed_viewmodel.dart';
-import '../pages/feed/feed_comment_sub_page.dart';
-import '../pages/profile/profile_who_care_sub_page.dart';
+import '../../../enums/constants.dart';
+import '../../../generated/l10n.dart';
+import '../../../models/like.dart';
+import '../../../models/post.dart';
+import '../../../models/user.dart';
+import '../../../viewmodel/feed_viewmodel.dart';
+import 'feed_comment_sub_page.dart';
+import '../profile/profile_who_care_sub_page.dart';
 
 // ignore: must_be_immutable
 class FeedPostLikesPart extends StatelessWidget {

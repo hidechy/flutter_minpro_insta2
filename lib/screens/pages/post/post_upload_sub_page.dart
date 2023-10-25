@@ -5,8 +5,8 @@ import '../../../enums/constants.dart';
 import '../../../generated/l10n.dart';
 import '../../../viewmodel/post_viewmodel.dart';
 import '../../components/confirm_dialog.dart';
-import '../../components/post_caption_part.dart';
-import '../../components/post_location_part.dart';
+import 'post_caption_part.dart';
+import 'post_location_part.dart';
 
 // ignore: must_be_immutable
 class PostUploadSubPage extends StatelessWidget {

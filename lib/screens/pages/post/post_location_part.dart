@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../generated/l10n.dart';
-import '../../models/location.dart';
-import '../../viewmodel/post_viewmodel.dart';
-import '../pages/post/map_sub_page.dart';
+import '../../../generated/l10n.dart';
+import '../../../models/location.dart';
+import '../../../viewmodel/post_viewmodel.dart';
+import 'map_sub_page.dart';
 
 // ignore: must_be_immutable
 class PostLocationPart extends StatelessWidget {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../generated/l10n.dart';
-import '../../viewmodel/feed_viewmodel.dart';
-import '../../viewmodel/post_viewmodel.dart';
+import '../../../enums/constants.dart';
+import '../../../generated/l10n.dart';
+import '../../../viewmodel/feed_viewmodel.dart';
+import '../../../viewmodel/post_viewmodel.dart';
 
 class PostCaptionInputTextField extends StatefulWidget {
   const PostCaptionInputTextField({super.key, this.captionBeforeUpdated, this.postCaptionOpenMode});

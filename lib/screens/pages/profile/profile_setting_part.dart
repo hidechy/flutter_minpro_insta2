@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../generated/l10n.dart';
-import '../../viewmodel/profile_viewmodel.dart';
-import '../../viewmodel/theme_viewmodel.dart';
-import '../login_screen.dart';
+import '../../../enums/constants.dart';
+import '../../../generated/l10n.dart';
+import '../../../viewmodel/profile_viewmodel.dart';
+import '../../../viewmodel/theme_viewmodel.dart';
+import '../../login_screen.dart';
 
 // ignore: must_be_immutable
 class ProfileSettingPart extends StatelessWidget {

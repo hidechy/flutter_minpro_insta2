@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import '../../../enums/constants.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/profile_viewmodel.dart';
-import '../../components/profile_detail_part.dart';
-import '../../components/profile_post_grid_part.dart';
-import '../../components/profile_setting_part.dart';
+import 'profile_detail_part.dart';
+import 'profile_post_grid_part.dart';
+import 'profile_setting_part.dart';
 
 // ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {

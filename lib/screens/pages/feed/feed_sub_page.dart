@@ -5,7 +5,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../enums/constants.dart';
 import '../../../models/user.dart';
 import '../../../viewmodel/feed_viewmodel.dart';
-import '../../components/feed_post_tile.dart';
+import 'feed_post_tile.dart';
 
 class FeedSubPage extends StatelessWidget {
   const FeedSubPage({super.key, required this.feedMode, this.feedUser, this.index});

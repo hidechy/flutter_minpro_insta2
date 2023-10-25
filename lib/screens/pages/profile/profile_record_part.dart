@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../generated/l10n.dart';
-import '../../viewmodel/profile_viewmodel.dart';
-import '../pages/profile/profile_who_care_sub_page.dart';
+import '../../../enums/constants.dart';
+import '../../../generated/l10n.dart';
+import '../../../viewmodel/profile_viewmodel.dart';
+import 'profile_who_care_sub_page.dart';
 
 // ignore: must_be_immutable
 class ProfileRecordPart extends StatelessWidget {

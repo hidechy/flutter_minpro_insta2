@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../enums/constants.dart';
-import '../../models/post.dart';
-import '../../models/user.dart';
-import '../../viewmodel/feed_viewmodel.dart';
+import '../../../enums/constants.dart';
+import '../../../models/post.dart';
+import '../../../models/user.dart';
+import '../../../viewmodel/feed_viewmodel.dart';
 import 'feed_post_comment_part.dart';
 import 'feed_post_header_part.dart';
 import 'feed_post_likes_part.dart';
-import 'image_from_url.dart';
+import '../../components/image_from_url.dart';
 
 class FeedPostTile extends StatelessWidget {
   const FeedPostTile({super.key, required this.feedMode, required this.post});

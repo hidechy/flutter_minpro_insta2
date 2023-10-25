@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../generated/l10n.dart';
-import '../../models/comment.dart';
-import '../../models/post.dart';
-import '../../models/user.dart';
-import '../../util/functions.dart';
-import '../../viewmodel/feed_viewmodel.dart';
-import '../pages/feed/feed_comment_sub_page.dart';
-import 'comment_rich_text.dart';
+import '../../../generated/l10n.dart';
+import '../../../models/comment.dart';
+import '../../../models/post.dart';
+import '../../../models/user.dart';
+import '../../../util/functions.dart';
+import '../../../viewmodel/feed_viewmodel.dart';
+import 'feed_comment_sub_page.dart';
+import 'comment/comment_rich_text.dart';
 
 // ignore: must_be_immutable
 class FeedPostCommentsPart extends StatelessWidget {

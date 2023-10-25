@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../viewmodel/profile_viewmodel.dart';
-import 'circle_photo.dart';
+import '../../../viewmodel/profile_viewmodel.dart';
+import '../../components/circle_photo.dart';
 
 class ProfileImagePart extends StatelessWidget {
   const ProfileImagePart({super.key});

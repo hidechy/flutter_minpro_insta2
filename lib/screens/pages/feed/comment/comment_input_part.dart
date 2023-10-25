@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../generated/l10n.dart';
-import '../../models/post.dart';
-import '../../viewmodel/comment_viewmodel.dart';
-import 'circle_photo.dart';
+import '../../../../generated/l10n.dart';
+import '../../../../models/post.dart';
+import '../../../../viewmodel/comment_viewmodel.dart';
+import '../../../components/circle_photo.dart';
 
 class CommentInputPart extends StatefulWidget {
   const CommentInputPart({super.key, required this.post});
