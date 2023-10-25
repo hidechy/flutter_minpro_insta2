@@ -12,6 +12,7 @@ import 'generated/l10n.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'viewmodel/login_viewmodel.dart';
+import 'viewmodel/theme_viewmodel.dart';
 
 void main() async {
   timeAgo.setLocaleMessages('ja', timeAgo.JaMessages());
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<LoginViewModel>();
+    final loginViewModel = context.read<LoginViewModel>();
+    final themeViewModel = context.watch<ThemeViewModel>();
 
     return MaterialApp(
       localizationsDelegates: const [
@@ -43,21 +45,9 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.white30),
-        ),
-        primaryIconTheme: const IconThemeData(color: Colors.white30),
-        fontFamily: 'NotoSansJP-Regular',
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white),
-          bodySmall: TextStyle(color: Colors.white),
-        ),
-      ),
+      theme: themeViewModel.selectedTheme,
       home: FutureBuilder<bool>(
-        future: viewModel.isSignIn(),
+        future: loginViewModel.isSignIn(),
         builder: (context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData && snapshot.data!) {
             return const HomeScreen();

@@ -4,6 +4,7 @@ import 'package:provider/single_child_widget.dart';
 import '../manager/database_manager.dart';
 import '../manager/location_manager.dart';
 import '../repository/post_repository.dart';
+import '../repository/theme_repository.dart';
 import '../repository/user_repository.dart';
 import '../viewmodel/comment_viewmodel.dart';
 import '../viewmodel/feed_viewmodel.dart';
@@ -11,12 +12,14 @@ import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/post_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/search_viewmodel.dart';
+import '../viewmodel/theme_viewmodel.dart';
 
 List<SingleChildWidget> globalProviders = [...independentModels, ...dependentModels, ...viewModels];
 
 List<SingleChildWidget> independentModels = [
   Provider<DatabaseManager>(create: (_) => DatabaseManager()),
   Provider<LocationManager>(create: (_) => LocationManager()),
+  Provider<ThemeRepository>(create: (_) => ThemeRepository()),
 ];
 
 List<SingleChildWidget> dependentModels = [
@@ -62,6 +65,11 @@ List<SingleChildWidget> viewModels = [
   ChangeNotifierProvider<SearchViewModel>(
     create: (context) => SearchViewModel(
       userRepository: context.read<UserRepository>(),
+    ),
+  ),
+  ChangeNotifierProvider<ThemeViewModel>(
+    create: (context) => ThemeViewModel(
+      themeRepository: context.read<ThemeRepository>(),
     ),
   ),
 ];

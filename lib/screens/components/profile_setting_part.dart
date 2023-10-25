@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../enums/constants.dart';
 import '../../generated/l10n.dart';
 import '../../viewmodel/profile_viewmodel.dart';
+import '../../viewmodel/theme_viewmodel.dart';
 import '../login_screen.dart';
 
 // ignore: must_be_immutable
@@ -19,16 +20,22 @@ class ProfileSettingPart extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
 
+    final themeViewModel = _context.read<ThemeViewModel>();
+
     return PopupMenuButton(
       icon: const Icon(Icons.settings),
-      onSelected: _onPopupMenuSelected,
+      onSelected: (value) {
+        _onPopupMenuSelected(menu: value, isDarkMode: themeViewModel.isDarkMode);
+      },
       itemBuilder: (context) {
         switch (profileMode) {
           case ProfileMode.myself:
             return [
               PopupMenuItem(
                 value: ProfileSettingMenu.themeChange,
-                child: Text(S.of(context).changeToLightTheme),
+                child: Text(
+                  (themeViewModel.isDarkMode) ? S.of(context).changeToLightTheme : S.of(context).changeToDarkTheme,
+                ),
               ),
               PopupMenuItem(
                 value: ProfileSettingMenu.signOut,
@@ -48,9 +55,11 @@ class ProfileSettingPart extends StatelessWidget {
   }
 
   ///
-  void _onPopupMenuSelected(ProfileSettingMenu menu) {
+  void _onPopupMenuSelected({required ProfileSettingMenu menu, required bool isDarkMode}) {
     switch (menu) {
       case ProfileSettingMenu.themeChange:
+        final themeViewModel = _context.read<ThemeViewModel>();
+        themeViewModel.setTheme(setDark: !isDarkMode);
         break;
       case ProfileSettingMenu.signOut:
         _signOut();
