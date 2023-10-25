@@ -9,6 +9,7 @@ import 'package:timeago/timeago.dart' as timeAgo;
 import 'di/providers.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
+import 'repository/theme_repository.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'viewmodel/login_viewmodel.dart';
@@ -20,6 +21,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final themeRepository = ThemeRepository();
+  await themeRepository.getIsDarkMode();
 
   runApp(
     MultiProvider(

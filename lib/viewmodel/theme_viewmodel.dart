@@ -8,14 +8,18 @@ class ThemeViewModel extends ChangeNotifier {
 
   final ThemeRepository themeRepository;
 
-  bool isDarkMode = true;
+  bool get isDarkMode => ThemeRepository.isDarkMode;
 
   ThemeData get selectedTheme => isDarkMode ? darkTheme : lightTheme;
 
   ///
   Future<void> setTheme({required bool setDark}) async {
     await themeRepository.setTheme(setDark: setDark);
-    isDarkMode = setDark;
+
+    // 不要になった
+    // isDarkMode = setDark;
+    //
+
     notifyListeners();
   }
 }
