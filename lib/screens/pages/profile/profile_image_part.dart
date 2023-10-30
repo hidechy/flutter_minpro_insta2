@@ -13,7 +13,8 @@ class ProfileImagePart extends StatelessWidget {
     final profileViewModel = context.read<ProfileViewModel>();
 
     return CirclePhoto(
-      photoUrl: profileViewModel.currentUser.photoUrl,
+//      photoUrl: profileViewModel.currentUser.photoUrl,
+      photoUrl: profileViewModel.profileUser.photoUrl,
       isImageFromFile: false,
       radius: 30,
     );
